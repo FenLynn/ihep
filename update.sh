@@ -7,18 +7,12 @@
 #   DESCRIPTION: 
 #===============================================================================
 
-cd /afs/ihep.ac.cn/users/l/lify/git/BESIII
+cpwd=$(pwd -P)
 
 git add .
 git commit -m "$(date)"
 git push origin master
 
 
-cd /afs/ihep.ac.cn/users/l/lify/git/ROOT
-
-git add .
-git commit -m "$(date)"
-git push origin master
-
-cd /afs/ihep.ac.cn/users/l/lify/git/
-echo "Both Done!"
+cd $cpwd
+echo "Sync Completed!"
