@@ -1,0 +1,167 @@
+#!/bin/bash
+#
+#===============================================================================
+#   FILENAME:         makeCC.sh
+#   AUTHOR:           Fengyun Li,lfypku@gmail.com
+#   CREATED:          2014年11月24日 14时53分08秒 CST
+#   DESCRIPTION: 
+#===============================================================================
+
+
+#*********************************Global Variable**********************************************************
+#script name to make
+SCRIPTNAME="analysis.C"
+
+
+ROOTTYPE=sig
+#ROOTTYPE=inm
+#ROOTTYPE=dat
+
+#no need to change
+CUTSTATUS=0
+
+COUNTERMULTIHIST=0
+
+#Whether Rewrite the script
+REWRITE=0
+
+#Whether draw the hist plot on 1 canvas for every hist
+DRAWEVERYHIST=1
+
+
+#********************************Drawing Variable**********************************************************
+#The first ${DRAWNO} branch you want to draw
+DRAWNO=2
+
+#The branch histogram info you need to set
+#First is your branch name,second is nbins,third is lower limit,fourth is higher limit
+#And if you give a branch name "example",then the default hist is "hexample",default canvase is "cexample"
+
+DRAW=('"eneg",100,1.48,1.6' \
+	'"pneg",100,1.48,1.6'\
+	'ccc')
+
+#********************************The generation script property********************************************
+if [ ${REWRITE} -eq 0 ]
+then
+	for((scriptno=1;scriptno<20;scriptno++))
+	do
+		tmpscriptname=$(echo ${SCRIPTNAME}|sed "s/\./${scriptno}&/g")
+		if [ -f "${tmpscriptname}" ];then
+			continue
+		else
+			touch ${tmpscriptname}
+			break
+		fi
+	done
+	SCRIPTNAME=${tmpscriptname}
+	echo "The current script file is ${SCRIPTNAME}!"
+else
+	rm -rf ${SCRIPTNAME}
+	touch ${SCRIPTNAME}
+fi
+#**********************************************************************************************************
+
+
+#********************************Cut Function**************************************************************
+#Cut criteria set
+function cut(){
+	CUTSTATUS=1
+	echo -e "\t\t//**************************This is a selection for $1*******************************************************" >> ${SCRIPTNAME}
+	echo -e "\t\tif ( ${ROOTTYPE}->$1 ){" >> ${SCRIPTNAME}
+	echo -ne "\t" >> ${SCRIPTNAME}
+}
+#**********************************************************************************************************
+
+#********************************Single Draw***************************************************************
+#
+
+
+#**********************************************************************************************************
+
+#********************************Draw multiple histogram in one graph Function*****************************
+#Draw two plot
+function multihist(){
+	echo -e "\t//*****************************This is a comparision for $1 hists*******************************************" >> ${SCRIPTNAME}
+	echo -e "\tTCanvas* cc${COUNTERMULTIHIST} = new TCanvas(\"cc${COUNTERMULTIHIST}\",\"cc${COUNTERMULTIHIST}\");" >> ${SCRIPTNAME}
+	echo -e "\tTLegend* leg${COUNTERMULTIHIST} = new TLegend(.1,.78,.25,.9);" >> ${SCRIPTNAME}
+	echo -e "" >> ${SCRIPTNAME}
+	for((histno=2;histno<=(($1+1));histno++))
+	do
+		eval tmphist=\${$histno}
+		eval tmphist_origin=\${$histno}
+	
+		#find where the histogram comes from
+		if [ $(echo $tmphist | grep -c "sig") -ne 0 ];then
+			histtype='Signal MC'
+		elif [ $(echo $tmphist | grep -c "inm") -ne 0 ];then
+			histtype='Inclusive MC'
+		elif [ $(echo $tmphist | grep -c "dat") -ne 0 ];then
+			histtype='Data'
+		else
+			histtype=tmphist
+		fi
+		
+		color_no=$((2*histno-2))
+		style_no=$((histno+18))
+			
+		if [ $histno -eq 2 ];then
+			draw_no=""
+		else
+			draw_no='"same"'
+		fi
+
+		
+		sed -e "s/histname/${tmphist}/g; s/color_no/$color_no/g; s/draw_no/$draw_no/g; \
+			s/legend/leg$COUNTERMULTIHIST/g; s/histtype_no/\"$histtype\"/g ;\
+			s/style_no/${style_no}/g" Template/MyMultiDraw.C  >> ${SCRIPTNAME}
+	done
+	echo -e "\tleg${COUNTERMULTIHIST}->SetFillColor(0);" >> ${SCRIPTNAME}
+	echo -e "\tleg${COUNTERMULTIHIST}->SetTextFont(42);" >> ${SCRIPTNAME}
+	echo -e "\tleg${COUNTERMULTIHIST}->Draw(\"same\");" >> ${SCRIPTNAME}
+}
+#**********************************************************************************************************
+echo "{" >> ${SCRIPTNAME}
+
+cat Template/MyUpper.C>>${SCRIPTNAME}
+
+for((i=0;i<${DRAWNO};i++))
+do
+	TEMP_HIST=${DRAW[i]#*\"}
+	TEMP_HIST=${TEMP_HIST%\"*}
+	HTEMP_HIST=h${ROOTTYPE}_${TEMP_HIST}
+	sed "s/histname/${HTEMP_HIST}/g; s/branchname/${TEMP_HIST}/g; s/histpar/${DRAW[i]}/g; \
+		s/rootfrom/${ROOTTYPE}/g" Template/MyDrawHead.C >> ${SCRIPTNAME}
+	#*********************************************set cut below******************************************
+	cut "pneg>1.5"
+	#*********************************************set cut up*********************************************
+	echo -e "\t\t${HTEMP_HIST}->Fill(${ROOTTYPE}->${TEMP_HIST});" >> ${SCRIPTNAME}
+	if [ ${CUTSTATUS} -eq 1 ];then
+		echo -e "\t\t}" >> ${SCRIPTNAME}
+	fi
+	echo -e "\t}" >> ${SCRIPTNAME}
+
+	if [ ${DRAWEVERYHIST} -eq 1 ]
+	then
+		echo -e "\tTCanvas* c${TEMP_HIST} = new TCanvas(\"c${TEMP_HIST}\",\"${TEMP_HIST}\");" >> ${SCRIPTNAME}
+		echo -e "\t${HTEMP_HIST}->Draw();" >> ${SCRIPTNAME}
+	fi
+	echo >> ${SCRIPTNAME}
+done
+
+multihist 2 hsig_pneg hsig_eneg
+
+echo "}" >> ${SCRIPTNAME}
+
+
+########################################################################################################
+#######################################    BACK UP    ##################################################
+########################################################################################################
+
+#tmphist=echo ${tmphist_origin} | cut -d - -f 1
+#echo -e "\t${tmphist}->GetXaxis()->SetTitle(\"M(e^{-}) [GeV/c^{2}]\");" >> ${SCRIPTNAME}
+#echo -e "\t${tmphist}->GetYaxis()->SetTitle(\"Events\");" >> ${SCRIPTNAME}
+#echo -e "\t${tmphist}->SetLineColor($tmpcolor);" >> ${SCRIPTNAME}
+#echo -e "\tleg${COUNTERMULTIHIST}->AddEntry(${tmphist},\"${histtype}\");" >> ${SCRIPTNAME}
+# echo -e "$2->GetYaxis()->SetTitle("Events");" >> ${SCRIPTNAME}
+# #echo $tmphist | grep -c "sig"

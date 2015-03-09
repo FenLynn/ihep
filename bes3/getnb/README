@@ -1,0 +1,4 @@
+1. cp getnb -r rootfilespath
+cd getnb
+change root files head "Eemiss" into your files
+root run.C

@@ -1,0 +1,88 @@
+
+======================================================================================
+       FILENAME: README
+        CREATED: 2014年11月26日 00时09分38秒
+         AUTHOR: Fengyun Li,lfypku@gmail.com
+    DESCRIPTION: 
+=====================================================================================
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!	This package was made by Fengyun LI,All Rights Resvered!    !!!!!!!!!!!!!
+!!!!!!!!!	If you have any problems,please contact lfypku@gamil.com	!!!!!!!!!!!!!			
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Tree Level Graph:
+.
+├── changelog
+├── Bak
+├── Class
+│   ├── chgclass.sh
+│   ├── clean.sh
+│   ├── Data.C
+│   ├── Data.h
+│   ├── Inmc.C
+│   ├── Inmc.h
+│   ├── makeclass.cc
+│   ├── Sigmc.C
+│   └── Sigmc.h
+├── Include
+│   ├── bes3plotstyle.C
+│   ├── bes3plotstyle_C.d
+│   ├── bes3plotstyle_C.so
+│   ├── bes3plotstyle.h
+│   └── MyHead.h
+├── merge.sh
+├── README
+└── Template
+    ├── MyClassExternal.C
+    ├── MyMultiDraw.C
+    ├── MySingleDraw.C
+    └── MyUpper.C
+
+
+NOTICE:
+	This a package to analysis the root file,and the default root file types were set
+	into 3 types,ie. Sigmc/Inmc/Data,which means signal Monte Carlo,inclusive Monte C-
+	arlo, data,respectively.Therefor,no matter what root file it's better to state the
+	original type.
+
+
+Bak:This folder is for backing up,no need to concern.
+
+Class:This folder is to link the root format files with the later script,the useful 
+	scripts number no need to concern is 3.
+├── Class
+	├── chgclass.sh: This one is to improve the Class Sigmc/Inmc/Data generate by Root
+	├				defaultly. Include some headers and add some additional functions
+	├				which you can set by yourself.
+    ├── clean.sh:	This one is for clean. Default setting is to clean *.d and *.so files.	
+	├				Set the varable "REMOVE_SOURCE=1" will remove .C and .h as well.
+    ├── makeclass.cc:This one is to generate Class.An absolute path of the root files
+					is necessary.Set your data origin Sigmc/Inmc/Data.Then execute it.
+
+Include :This folder is some packages or headers that are very stable and needn't to 
+		change very frequently.You can add your own here as a tool,the load it in root
+		with "gROOT->ProcessLine(".L ./Include/yoursource.C++")",then the customize fun-
+		ction can be called.
+├── Include
+│   ├── bes3plotstyle.C:BES drawing package.
+│   ├── bes3plotstyle.h:BES drawing package.
+│   └── MyHead.h: Personal headers,you can add here then include it everywhere.
+	
+merge.sh:This is the most important script.All your generated root scripts made by it;
+		it's a shell script with several function.You can choose your selection as you 
+		need to generate the root script.
+
+Template:A template source file to make scripts,an additional assistance.Generally Spea-
+		king,it's no need to change.
+└── Template
+    ├── MyClassExternal.C:  Help generate class,used in chgclass.sh.
+    ├── MyMultiDraw.C:		Help draw multiple graphs,used in merge.sh
+    ├── MySingleDraw.C		Help draw single graphs,used in merge.sh
+    └── MyUpper.C			Help load class,used in merge.sh
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!	This package was made by Fengyun LI,All Rights Resvered!    !!!!!!!!!!!!!
+!!!!!!!!!	If you have any problems,please contact lfypku@gamil.com	!!!!!!!!!!!!!			
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
