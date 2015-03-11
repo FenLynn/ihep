@@ -16,7 +16,7 @@ myc = TCanvas("myc","My Canvas", 1400, 400)
 myc.Divide(3)
 
 ## options for plots and verboses: 0, 1, 2
-optp = 0
+optp = 1
 
 ## this time using RooNLLVar
 def fitMass(rangem=[0.4,2.0], iflag=1, CBpar=[0.,0.,0.]):
@@ -33,7 +33,7 @@ def fitMass(rangem=[0.4,2.0], iflag=1, CBpar=[0.,0.,0.]):
         signal = RooGaussian("signal", "signal", mass, mean, sigma)
     elif iflag == 2 or iflag == 3:
         ## Construct signal pdf with CB function
-		print CBpar[0],CBpar[1],CBpar[2]
+		print "outinfo",x,CBpar[0],CBpar[1],CBpar[2],CBpar[3]
 		cbmean = RooRealVar("cbmean", "cbmean" , m0)
 		cbsigma = RooRealVar("cbsigma", "cbsigma",CBpar[0])
 		n1= RooRealVar("n1","", CBpar[1])
@@ -160,10 +160,12 @@ CBpar=[0.00626, 1.178, 1.260,1.0]
 ## flag to indicate signal pdf used
 ## 1: gauss 2: single CB  3: step-wise CB
 iflag=3
-mstep = 25
+mstep = 160
 halfwidth = 0.1
-mstart = 0.8
-mend = 1.2
+#mstart = 0.8
+mstart = 0.4
+#mend = 1.2
+mend = 2.0
 binwidth = (mend-mstart)/(mstep-1)
 hUL = TH1F("hUL","hUL", mstep, mstart-0.5*binwidth, mend+0.5*binwidth)
 hUL.SetTitle(";mee(GeV); nsignal UL(90%CL)")
@@ -188,10 +190,11 @@ for x in frange(mstart,mend,mstep):
 	if optp: print "frange... ", x
 	print "frange... ", x-0.5*binwidth,x+0.5*binwidth
 	if iflag == 3:
-		if x<=float(sig_array[0][0]) :
-			CBpar[float(sig_array[0][1]),float(sig_array[0][2]),float(sig_array[0][3]),float(sig_array[0][4])]
-		elif x>=float(sig_array[Nsigsam-1][0]):
-			CBpar[float(sig_array[Nsigsam-1][1]),float(sig_array[Nsigsam-1][2]),float(sig_array[Nsigsam-1][3]),float(sig_array[Nsigsam-1][4])]
+		if x<float(sig_array[0][0]) :
+			CBpar=[float(sig_array[0][1]),float(sig_array[0][2]),float(sig_array[0][3]),float(sig_array[0][4])]
+			#CBpar[0.003,0.1,0.2,0.5]
+		elif x>float(sig_array[Nsigsam-1][0]):
+			CBpar=[float(sig_array[Nsigsam-1][1]),float(sig_array[Nsigsam-1][2]),float(sig_array[Nsigsam-1][3]),float(sig_array[Nsigsam-1][4])]
 		else:
 			nbins=int(round((x-float(sig_array[0][0]))/sstep))
 			#CBpar[float(sig_array[int(nbins)][1]),float(sig_array[int(nbins)][2]),float(sig_array[int(nbins)][3])]
@@ -203,9 +206,7 @@ for x in frange(mstart,mend,mstep):
 	ul_nsig = fitMass([x-halfwidth,x+halfwidth], iflag, CBpar)
 	Njpsi = 1086.9e6
 	eNjpsi = 6.0e6
-	
 	ul_br = ul_nsig/(Njpsi*CBpar[3])
-	
 #	hUL.SetBinContent(ibin, ul_nsig)
 	hUL.SetBinContent(ibin, ul_br)
 	ibin += 1
