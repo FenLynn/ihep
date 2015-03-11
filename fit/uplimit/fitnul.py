@@ -1,6 +1,7 @@
 import ROOT
 import math
 import sys
+import json
 
 from ROOT import (gROOT, gSystem, TCanvas, TF1, TFile, TTree, gRandom, TH1F, TChain, \
                   RooFit,RooRealVar, RooFormulaVar, RooGaussian, RooChebychev, RooArgList, \
@@ -185,7 +186,12 @@ def getShape(m, shape_parlist, i_relative = 0  ):
         CBpar = shape_parlist[ipos][1:]
     else:
         nbins=int(round((m-shape_parlist[0][0])/sstep))
-        CBpar = shape_parlist[nbins+i_relative][1:]        
+        ipos = nbins + i_relative
+        if ipos < 0:
+            ipos = 0
+        elif ipos > Nsigsam-1:
+            ipos = Nsigsam-1
+        CBpar = shape_parlist[ipos][1:]        
     return CBpar
 
 
@@ -238,12 +244,12 @@ iflag = 3
 halfwidth = 0.1
 mstart = 0.4
 mend = 2.0
-nstep = 160
+nstep = 3
 
 #	
 binwidth = (mend-mstart)/(nstep-1)
 hUL = TH1F("hUL","hUL", nstep, mstart-0.5*binwidth, mend+0.5*binwidth)
-hUL_BR = TH1F("hUL","hUL", nstep, mstart-0.5*binwidth, mend+0.5*binwidth)
+hUL_BR = TH1F("hUL_BR","hUL_BR", nstep, mstart-0.5*binwidth, mend+0.5*binwidth)
 hUL.SetTitle(";mee(GeV); nsignal UL(90%CL)")
 hUL_BR.SetTitle(";mee(GeV); BR UL(90%CL)")
 
@@ -275,41 +281,61 @@ shape_par = [map(float, sig_array[i]) for i in xrange(Nsigsam)]
 # c: bkg shape, = 1 (+1 order polynomial)
 ## should use like ""000 001 010 100", note it has to be string
 
-auto = 0 # flag to control automatic fitting with all options
+## flag to control automatic fitting with all options, 0: manual
+auto = 1 
 
-if auto == 1:
-## this part is for manual operation
-    opt_fit_in = "+0+0+0"
-    opt_fit = [int(opt_fit_in[j:j+2]) for j in range(0,len(opt_fit_in),2)]
-    ul_sig = multifit(mstart, mend, nstep)
-else:
-## this part is for automatic 
-    allopt = ["+0+0+0","+0+0+1","+0+1+0","+0-1+0","+1+0+0","-1+0+0" ]
-    grandall_ul = dict()
-    for this_fit in allopt:
-        opt_fit = [int(this_fit[j:j+2]) for j in range(0,len(this_fit),2)]
-        vdict = multifit(mstart, mend, nstep)
-        vkeys = vdict.keys()
-        vkeys.sort()
-        grandall_ul[this_fit] = map(vdict.get, vkeys)
-    vmap = zip(*grandall_ul.values())
-    ul_sig = dict(zip(vkeys, map(max, vmap)))
-    if optp: print grandall_ul
+## switch to control whether N_UL and BR_UL calculated together
+## 1: N 2: BR 3: N+BR 
+calc_switch = 3 
+
+if calc_switch & 1:
+    if auto == 0:
+    ## this part is for manual operation
+        opt_fit_in = "+0+0+0"
+        opt_fit = [int(opt_fit_in[j:j+2]) for j in range(0,len(opt_fit_in),2)]
+        ul_sig = multifit(mstart, mend, nstep)
+    else:
+    ## this part is for automatic 
+        allopt = ["+0+0+0","+0+0+1","+0+1+0","+0-1+0","+1+0+0","-1+0+0" ]
+        grandall_ul = dict()
+        for this_fit in allopt:
+            opt_fit = [int(this_fit[j:j+2]) for j in range(0,len(this_fit),2)]
+            vdict = multifit(mstart, mend, nstep)
+            vkeys = vdict.keys()
+            vkeys.sort()
+            grandall_ul[this_fit] = map(vdict.get, vkeys)
+        vmap = zip(*grandall_ul.values())
+        ul_sig = dict(zip(vkeys, map(max, vmap)))
+        if optp: print grandall_ul
 
 
 
 if optp: print ul_sig
+json.dump(ul_sig, open("ulnsig.dict","w"))
+
+if calc_switch == 2: 
+    ul_sig  = json.load(open("ulnsig.dict"))
+
 ibin=1
 delta_sys= 0.1
 for x in frange(mstart,mend,nstep):
-    hUL.SetBinContent(ibin, ul_sig[x])
-    this_br = getul_br(x, ul_sig[x],delta_sys)
-    hUL_BR.SetBinContent(ibin, this_br)
+    if calc_switch & 1:
+        hUL.SetBinContent(ibin, ul_sig[x])
+    if calc_switch & 2: 
+        this_br = getul_br(x, ul_sig[x],delta_sys)
+        hUL_BR.SetBinContent(ibin, this_br)
     ibin += 1
 
-hUL.Draw()
-raw_input()
-hUL_BR.Draw()
-raw_input()
+if calc_switch & 1:
+    hUL.Draw()
+    myc.Print("hul_nsig.png")
+    hUL.SaveAs("hul_nsig.root")
+    raw_input()
+
+if calc_switch & 2:
+    hUL_BR.Draw()
+    myc.Print("hul_br.png")
+    hUL_BR.SaveAs("hul_br.root")
+    raw_input()
 
 
