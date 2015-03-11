@@ -16,7 +16,7 @@ myc = TCanvas("myc","My Canvas", 1400, 400)
 myc.Divide(3)
 
 ## options for plots and verboses: 0, 1, 2
-optp = 1
+optp = 0
 
 ## this time using RooNLLVar
 def fitMass(rangem=[0.4,2.0], iflag=1, CBpar=[0.,0.,0.]):
@@ -201,7 +201,13 @@ for x in frange(mstart,mend,mstep):
 	else:
 		pass
 	ul_nsig = fitMass([x-halfwidth,x+halfwidth], iflag, CBpar)
-	hUL.SetBinContent(ibin, ul_nsig)
+	Njpsi = 1086.9e6
+	eNjpsi = 6.0e6
+	
+	ul_br = ul_nsig/(Njpsi*CBpar[3])
+	
+#	hUL.SetBinContent(ibin, ul_nsig)
+	hUL.SetBinContent(ibin, ul_br)
 	ibin += 1
 
 hUL.Draw()
