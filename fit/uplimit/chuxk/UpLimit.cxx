@@ -22,14 +22,14 @@ void UpLimit()
 
 Double_t low(0.88), high(1.02);
 
-RooRealVar InvM_etap("InvM_etap","InvM_etap",low,high);
+RooRealVar Inv_U("Inv_U","Inv_U",low,high);
 
 //Get the MC shape
-TFile *file1=new TFile("~/workfs/PEE/655/CGammaEE/SigMc.root");
-TTree* tree1 =(TTree*) file1-> Get("TreeAna");
+TFile *file1=new TFile("./result.root");
+TTree* tree1 =(TTree*) file1-> Get("sig");
 // read the tree into histogram
-RooDataSet sigmc("sigmc", "", tree1, RooArgSet(InvM_etap));
-RooKeysPdf sig_shape("sig_shape", "", InvM_etap, sigmc);
+RooDataSet sigmc("sigmc", "", tree1, RooArgSet(Inv_U));
+RooKeysPdf sig_shape("sig_shape", "", Inv_U, sigmc);
 
 
 RooRealVar nsig("nsig","nsig",0);
@@ -37,16 +37,16 @@ RooExtendPdf esig("esig","esig",sig_shape,nsig);
 
 RooRealVar p11("p11", "p11", 0, -1, 1);
 RooRealVar p12("p12", "p12", 0, -1, 1);
-RooChebychev bkg("bkg", "bkg", InvM_etap, RooArgList(p11,p12));
+RooChebychev bkg("bkg", "bkg", Inv_U, RooArgList(p11,p12));
 RooRealVar nbkg("nbkg","nbkg",30,10,80);
 RooExtendPdf ebkg("ebkg","ebkg",bkg,nbkg);
 
 RooAddPdf model("model","",RooArgList(esig,ebkg),RooArgList(nsig,nbkg));
 
-TFile *file=new TFile("~/workfs/PEE/655/CGammaEE/data.root");
-TTree* tree =(TTree*) gDirectory-> Get("TreeAna");
+TFile *file=new TFile("./result.root");
+TTree* tree =(TTree*) file-> Get("data");
 // read the tree into histogram
-RooDataSet data("data","dataset with InvM_etap",tree,InvM_etap);
+RooDataSet data("data","dataset with Inv_U",tree,Inv_U);
 
 // fit model to data
 
