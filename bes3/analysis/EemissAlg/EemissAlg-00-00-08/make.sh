@@ -10,7 +10,7 @@
 cpwd=$(pwd -P)
 
 cd ~
-source setboss664p01.sh
+source set664p01.sh
 cd ${cpwd}
 
 cd cmt
