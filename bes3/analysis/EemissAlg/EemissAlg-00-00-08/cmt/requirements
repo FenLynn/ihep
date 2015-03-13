@@ -1,0 +1,22 @@
+package EemissAlg
+author He Kanglin <hekl@ihep.ac.cn>
+
+use BesPolicy BesPolicy-*
+use GaudiInterface GaudiInterface-* External
+
+use DstEvent DstEvent-* Event
+use EventModel   EventModel-*  Event
+use EvtRecEvent EvtRecEvent-* Event
+
+use VertexFit    VertexFit-*   Analysis 
+use ParticleID   ParticleID-*  Analysis
+
+use BesROOT      BesROOT-00-*     External
+use McTruth      McTruth-*        Event
+#use SimplePIDSvc	SimplePIDSvc-*	 Utilities
+#use DTagTool     DTagTool-*    Analysis
+
+apply_pattern component_library 
+library EemissAlg  *.cxx  components/*.cxx
+
+apply_pattern declare_runtime files=*.txt

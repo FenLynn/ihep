@@ -1,0 +1,12 @@
+#include "$VERTEXFITROOT/share/jobOptions_VertexDbSvc.txt"
+ApplicationMgr.DLLs += {"EemissAlg"};
+ApplicationMgr.TopAlg += { "Eemiss" };
+
+Eemiss.chk1C=1;
+Eemiss.saveTopoTree=0;
+
+Eemiss.p_lphotonang = 0.8;
+Eemiss.p_hphotonang = 0.92;
+Eemiss.f_cktpang = 1;
+
+
