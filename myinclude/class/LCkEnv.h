@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <stdio.h>
-#include "LRoot.h"
+#include "../rootbasic.h"
 
 using namespace std;
 extern char **environ;
