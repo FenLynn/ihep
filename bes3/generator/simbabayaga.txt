@@ -1,0 +1,42 @@
+//DENG Zi-yan 2008-03-17
+ 
+#include "$OFFLINEEVENTLOOPMGRROOT/share/OfflineEventLoopMgr_Option.txt"
+//*************job options for Babayaga ***************
+#include "$BABAYAGAROOT/share/jobOptions_BABAYAGA-share.txt"
+Babayaga.Channel=1;           // 1: e+e-->e+e-;2:e+e_->mu+mu-;3:e+e-->gamma gamma;4:e+e--->pi+pi-
+Babayaga.Ebeam=1.825;            // Ebeam = ECM/2 [GeV]
+Babayaga.MinThetaAngle=20;       // minimum angle(deg.)
+Babayaga.MaxThetaAngle=160;      //maximum angle(deg.)
+Babayaga.MinimumEnergy=0.001;      //minimum energy  (GeV)
+Babayaga.MaximumAcollinearity=180; //maximum acollinearity (deg.)
+Babayaga.RunningAlpha=1;         //running alpha (0 = off, 1 = on)
+Babayaga.HadronicResonance=0;    //hadronic resonances for ICH = 1 or 2
+Babayaga.FSR_swich=1;            //FSR switch for ICH = 2 (0 = off, 1 = on)
+Babayaga.MinEnerCutG=0.01;        //minimum energy for CUTG = Y (GeV)
+Babayaga.MinAngCutG=5;           //minimum angle for CUTG = Y  (deg.)
+Babayaga.MaxAngCutG=21;          //maximum angle for CUTG = Y  (deg.)
+Babayaga.HBOOK = 0;              // close babayaga.ntuple hbook output
+Babayaga.PHCUT = 1;
+Babayaga.CUTG  = 1;
+ 
+//**************job options for random number************************
+
+ 
+//**************job options for detector simulation******************
+#include "$BESSIMROOT/share/G4Svc_BesSim.txt"
+ 
+//configure for calibration constants
+#include "$CALIBSVCROOT/share/calibConfig_sim.txt"
+ 
+// run ID
+RealizationSvc.RunIdList = {-8093,0,-9025};
+ 
+#include "$ROOTIOROOT/share/jobOptions_Digi2Root.txt"
+RootCnvSvc.digiRootOutputFile="/besfs/groups/tauqcd/wangbq/chenzx/664kk/mc/bhabha/3650/bhabha_XXX.rtraw";
+ 
+// OUTPUT PRINTOUT LEVEL
+// Set output level threshold (2=DEBUG, 3=INFO, 4=WARNING, 5=ERROR, 6=FATAL )
+MessageSvc.OutputLevel  = 6;
+ 
+// Number of events to be processed (default is 10)
+ApplicationMgr.EvtMax = 100000;
