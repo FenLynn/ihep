@@ -1,13 +1,9 @@
-#ifndef _ROOTALLH_
-#define _ROOTALLH_
+#ifndef ROOTALL_H
+#define ROOTALL_H 1
 
-#include "/workfs/bes/lify/package/include/root/LCPP.h"
-#include "/workfs/bes/lify/package/include/root/LRooHead.h"
-#include "/workfs/bes/lify/package/include/root/LRooFit.h"
-#include "/workfs/bes/lify/package/include/root/LPlot.h"
-
-#include "/workfs/bes/lify/package/include/class/LCkEnv.h"
-#include "/workfs/bes/lify/package/include/func/LMath.h"
+#include "/workfs/bes/lify/myinclude/root/LCPP.h"
+#include "/workfs/bes/lify/myinclude/root/LRooHead.h"
+#include "/workfs/bes/lify/myinclude/root/LPlot.h"
 
 #endif
 
