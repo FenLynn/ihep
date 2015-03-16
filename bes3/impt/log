@@ -1,0 +1,33 @@
+/afs/ihep.ac.cn/bes3/offline/Boss/6.6.4.p01/Generator/BesEvtGen/BesEvtGen-00-01-94/share
+/afs/ihep.ac.cn/users/s/shanw/boss/655/for_shanw
+
+
+$BesArea 
+$SIMPLE
+$DTAG
+/besfs/groups/higgs/users/chenzx/wwAna
+
+cp 
+delete build/*
+HFcmake
+make 
+make install
+
+vi ~manqi/.bashrc
+/besfs/groups/higgs/users/chenzx/InvRecoMassAna/ana
+/afs/ihep.ac.cn/users/z/zhaog/workarea/boss661/Analysis/DsDsAlg/DsDsAlg-00-00-12/src
+#include "DTagTool/DTagTool.h"
+use DTagTool     DTagTool-*    Analysis
+use ParticleID   ParticleID-*  Analysis
+#include "ParticleID/ParticleID.h"
+
+/workfs/bes/liuqh/workarea/664p03/Gam2XXAlg/Gam2XXAlg-00-00-00/src
+
+j/psi inclusive MC:/bes3fs/offline/data/663p02  no664p01?
+
+topo /ihepbatch/bes/dusx/common/topo  README & Example
+
+tokens ,check time limit for tokens
+
+
+pwd -P: to output direct dir.

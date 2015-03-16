@@ -1,0 +1,69 @@
+#!bin/tcsh
+# python ttH_compareshape.py filename1 filename2 variablename cutname weightname1 weightname2 index1 bin_ min_ max_ xtitle additionname
+#python ttH_compareshape.py mu_ttHbbM125_6jet_4btag mu_TTbar_6jet_4btag ttH_topjjj_m "ttH_event==1" effwt puwt 0 40 0 2000 "Hadronic Top Mass" "hadronictopmass"
+#python ttH_compareshape.py mu_ttHbbM125_6jet_4btag mu_TTbar_6jet_4btag ttH_toplvj_m "ttH_event==1" effwt puwt 0 60 0 1200 "Leptonic Top Mass" "leptonictopmass"
+#python ttH_compareshape.py mu_ttHbbM125_6jet_4btag mu_TTbar_6jet_4btag ttH_wjj_m "ttH_event==1" effwt puwt 0 48 0 1200 "Hadronic W Mass" "hadronicWmass"
+#python ttH_compareshape.py mu_ttHbbM125_6jet_4btag mu_TTbar_6jet_4btag ttH_dijet_m "ttH_event==1" effwt puwt 0 36 0 1800 "Higgs Mass" "higgsmass"
+
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} mZ "1==1" "1==1" "1==1" 0 40 60 100 "mZ" "mZ"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} mH "1==1" "1==1" "1==1" 0 40 125.5 125.7 "mH" "mH"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} mVH "1==1" "1==1" "1==1" 0 50 150 1150 "mVH" "mVH"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} costheta1 "1==1" "1==1" "1==1" 0 25 -1 1 "costheta1" "costheta1"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} costheta2 "1==1" "1==1" "1==1" 0 25 -1 1 "costheta2" "costheta2"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} costhetastar "1==1" "1==1" "1==1" 0 25 -1 1 "costhetastar" "costhetastar"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} phi "1==1" "1==1" "1==1" 0 32 -3.2 3.2 "phi" "phi"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} phi1 "1==1" "1==1" "1==1" 0 32 -3.2 3.2 "phi1" "phi1"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} rapidityVH "1==1" "1==1" "1==1" 0 40 -4 4 "rapidityVH" "rapidityVH"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} isLeptonic "1==1" "1==1" "1==1" 0 10 -1 9 "isLeptonic" "isLeptonic"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} isUpTypeQuark "1==1" "1==1" "1==1" 0 10 -1 9 "isUpTypeQuark" "isUpTypeQuark"
+#python ttH_compareshape.py CP=0^{+} CP=0^{-} decayMode "1==1" "1==1" "1==1" 0 5 7 12 "decayMode" "decayMode"
+
+#python ttH_compareshape.py CP=0^{+} CP=0^{+},\ Higher\ Order mZ "1==1" "1==1" "1==1" 0 40 60 100 "mZ" "mZ"
+#python ttH_compareshape.py CP=0^{+} CP=0^{+},\ Higher\ Order mH "1==1" "1==1" "1==1" 0 40 125.5 125.7 "mH" "mH"
+#python ttH_compareshape.py CP=0^{+} CP=0^{+},\ Higher\ Order mVH "1==1" "1==1" "1==1" 0 50 150 1150 "mVH" "mVH"
+#python ttH_compareshape.py CP=0^{+} CP=0^{+},\ Higher\ Order costheta1 "1==1" "1==1" "1==1" 0 25 -1 1 "costheta1" "costheta1"
+#python ttH_compareshape.py CP=0^{+} CP=0^{+},\ Higher\ Order costheta2 "1==1" "1==1" "1==1" 0 25 -1 1 "costheta2" "costheta2"
+#python ttH_compareshape.py CP=0^{+} CP=0^{+},\ Higher\ Order costhetastar "1==1" "1==1" "1==1" 0 25 -1 1 "costhetastar" "costhetastar"
+#python ttH_compareshape.py CP=0^{+} CP=0^{+},\ Higher\ Order phi1 "1==1" "1==1" "1==1" 0 32 -3.2 3.2 "phi1" "phi1"
+#python ttH_compareshape.py CP=0^{+} CP=0^{+},\ Higher\ Order rapidityVH "1==1" "1==1" "1==1" 0 40 -4 4 "rapidityVH" "rapidityVH"
+#python ttH_compareshape.py CP=0^{+} CP=0^{+},\ Higher\ Order decayMode "1==1" "1==1" "1==1" 0 5 7 12 "decayMode" "decayMode"
+
+
+#python ttH_compareshape.py CP=0^{+} CP\ mixed\ 50-50 mZ "1==1" "1==1" "1==1" 0 40 60 100 "mZ" "mZ"
+#python ttH_compareshape.py CP=0^{+} CP\ mixed\ 50-50 mH "1==1" "1==1" "1==1" 0 40 125.5 125.7 "mH" "mH"
+#python ttH_compareshape.py CP=0^{+} CP\ mixed\ 50-50 mVH "1==1" "1==1" "1==1" 0 50 150 1150 "mVH" "mVH"
+#python ttH_compareshape.py CP=0^{+} CP\ mixed\ 50-50 costheta1 "1==1" "1==1" "1==1" 0 25 -1 1 "costheta1" "costheta1"
+#python ttH_compareshape.py CP=0^{+} CP\ mixed\ 50-50 costheta2 "1==1" "1==1" "1==1" 0 25 -1 1 "costheta2" "costheta2"
+#python ttH_compareshape.py CP=0^{+} CP\ mixed\ 50-50 costhetastar "1==1" "1==1" "1==1" 0 25 -1 1 "costhetastar" "costhetastar"
+#python ttH_compareshape.py CP=0^{+} CP\ mixed\ 50-50 phi1 "1==1" "1==1" "1==1" 0 32 -3.2 3.2 "phi1" "phi1"
+#python ttH_compareshape.py CP=0^{+} CP\ mixed\ 50-50 rapidityVH "1==1" "1==1" "1==1" 0 40 -4 4 "rapidityVH" "rapidityVH"
+#python ttH_compareshape.py CP=0^{+} CP\ mixed\ 50-50 decayMode "1==1" "1==1" "1==1" 0 5 7 12 "decayMode" "decayMode"
+
+
+
+#python ttH_compareshape.py CP=0^{+} CP=0^{+},\ Higher\ Order mZ "1==1" "1==1" "1==1" 0 40 60 100 "mZ" "mZ"
+#python ttH_compareshape.py CP=0^{+} CP\ mixed\ 50-50 mZ "1==1" "1==1" "1==1" 0 40 60 100 "mZ" "mZ"
+
+#python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Px "1==1" "1==1" "noindex" 0 50 -200 200 "Px" "Px"
+#python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Py "1==1" "1==1" "noindex" 0 50 -200 200 "Py" "Py"
+#python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Pz "1==1" "1==1" "noindex" 0 50 -1000 1000 "Pz" "Pz"
+#python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.E "1==1" "1==1" "noindex" 0 50 0 1000 "E" "E"
+#python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.M "1==1" "1==1" "noindex" 0 50 80 130 "M" "M"
+#python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.PT "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)" "1==1" "noindex" 0 50 0 200 "LeptonPT" "LeptonPT"
+#python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Eta "1==1" "1==1" "noindex" 0 50 -3 3 "Eta" "Eta"
+#python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Phi "1==1" "1==1" "noindex" 0 50 -3 3 "Phi" "Phi"
+#python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Rapidity "1==1" "1==1" "noindex" 0 50 -25 25 "Rapidity" "Rapidity"
+#python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.LifeTime "1==1" "1==1" "noindex" 0 50 -1 1 "LifeTime" "LifeTime"
+
+# ---------------------Lepton, pt eta cut------------------------------------
+
+python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Px "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)&&(Particle.Eta>=-2.5)" "1==1" "noindex" 0 50 -200 200 "Px" "Px"
+python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Py "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)&&(Particle.Eta>=-2.5)" "1==1" "noindex" 0 50 -200 200 "Py" "Py"
+python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Pz "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)&&(Particle.Eta>=-2.5)" "1==1" "noindex" 0 50 -1000 1000 "Pz" "Pz"
+python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.E "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)&&(Particle.Eta>=-2.5)" "1==1" "noindex" 0 50 0 1000 "E" "E"
+python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.M "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)&&(Particle.Eta>=-2.5)" "1==1" "noindex" 0 50 80 130 "M" "M"
+python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.PT "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)&&(Particle.Eta>=-2.5)" "1==1" "noindex" 0 50 0 200 "LeptonPT" "LeptonPT"
+python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Eta "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)&&(Particle.Eta>=-2.5)" "1==1" "noindex" 0 50 -3 3 "Eta" "Eta"
+python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Phi "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)&&(Particle.Eta>=-2.5)" "1==1" "noindex" 0 50 -3 3 "Phi" "Phi"
+python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.Rapidity "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)&&(Particle.Eta>=-2.5)" "1==1" "noindex" 0 50 -25 25 "Rapidity" "Rapidity"
+python ttH_compareshape.py JHUGenerator_ZH_SM MadGraph_ZH_SM Particle.LifeTime "(Particle.PID==-11||Particle.PID==11||Particle.PID==-13||Particle.PID==13||Particle.PID==-15||Particle.PID==15)&&(Particle.PT>=10)&&(Particle.Eta<=2.5)&&(Particle.Eta>=-2.5)" "1==1" "noindex" 0 50 -1 1 "LifeTime" "LifeTime"
