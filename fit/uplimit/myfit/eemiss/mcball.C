@@ -1,8 +1,6 @@
-#include "fstream"
-#include "LRoot.h"
+#include "/workfs/bes/lify/myinclude/rootult.h"
 using namespace RooFit;
 using namespace std;
-
 
 //====================================================================
 //For crystal signal fit to get shape
