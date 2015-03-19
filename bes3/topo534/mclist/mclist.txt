@@ -1,0 +1,40 @@
+the topology category statisticcal information
+the total topology number is: 4
+
+topology: 1          Events: 32        
+
+       Event listing (summary)
+I         particle/jet         KF    orig
+0         J/psi               443      -1
+1         e+                  -11       0
+2         e-                   11       0
+3         gammaFSR            -22       0
+
+topology: 0          Events: 27        
+
+       Event listing (summary)
+I         particle/jet         KF    orig
+0         J/psi               443      -1
+1         e+                  -11       0
+2         e-                   11       0
+3         gammaFSR            -22       0
+4         gammaFSR            -22       0
+
+topology: 2          Events: 1         
+
+       Event listing (summary)
+I         particle/jet         KF    orig
+0         J/psi               443      -1
+1         e+                  -11       0
+2         e-                   11       0
+
+topology: 3          Events: 1         
+
+       Event listing (summary)
+I         particle/jet         KF    orig
+0         J/psi               443      -1
+1         pi+                 211       0
+2         pi-                -211       0
+3         pi0                 111       0
+4         gamma                22       3
+5         gamma                22       3

@@ -1,0 +1,35 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lscape}
+\usepackage[section]{placeins}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\marginparwidth}{1in}
+\setlength{\marginparsep}{0pt}
+\setlength{\textwidth} {16.0cm}
+\setlength{\textheight}{24.0 cm}
+\begin{document}
+\title{MC topology analysis: tex version}
+\author{Gang LI\\
+\small{ IHEP}}
+\maketitle
+
+\tableofcontents
+\newpage
+\section{Modes list in decreasing order}
+
+\subsection{Decay modes }
+\begin{landscape} \include{output/mclist_0000} \end{landscape} \clearpage  
+
+\subsection{Total number of events is 61}
+
+\setcounter{table}{0}
+
+\section{Modes rearanged by types of final states}
+
+\subsection{ Types of final states }
+\begin{landscape} \include{output/summary} \end{landscape} \clearpage
+
+\subsection{ Total number of types of final states 2}
+
+\end{document}

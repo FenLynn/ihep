@@ -1,0 +1,7 @@
+the topology category statisticcal information
+the total topology number is: 4
+type      Event Number
+1         32        
+0         27        
+2         1         
+3         1         

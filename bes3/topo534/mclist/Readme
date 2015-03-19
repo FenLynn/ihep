@@ -1,0 +1,5 @@
+usage 
+cp somewhere/mclist.txt .
+./top.py
+make
+gv notice.ps&

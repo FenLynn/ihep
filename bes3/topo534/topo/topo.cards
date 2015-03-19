@@ -1,0 +1,18 @@
+#do not change the order of the following string
+
+#tree name
+save
+#gam0
+
+#root file name
+#/besfs/users/lify/Root/Eemiss_v4/ana/12mc/t1_6/out.root
+/afs/ihep.ac.cn/users/l/lify/wangscr/mc12/out1.root
+#/besfs/users/lify/Root/Eemiss_v4/sysun/pid/12mc/prob/noopt.root
+#/besfs/users/lify/Root/Eemiss_v4/sysun/vtx/12mc/vtxcut.root
+#/besfs/users/lify/Root/Eemiss_v3/ana/ck/ckinmc14C/r2/1C4C.root
+#/besfs/users/lify/Root/Eemiss_v3/ana/ck/chkee/gam0.root
+INCLUSIVE PARTICLE
+
+-3122
+
+TOPO START

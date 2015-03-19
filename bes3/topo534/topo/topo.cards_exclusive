@@ -1,0 +1,57 @@
+#do not change the order of the following string
+
+#tree name
+gghh
+
+#root file name
+#/ihepbatch/bes/dusx/common/topo/topo_psip23pi.root
+topo_psip23pi.root
+#/ihepbatch/besd15/pingrg/users/dusx/root640/gghh/psip2001.root
+
+TOPO START
+
+#pi+ pi- pi0
+0 100443
+
+1 111
+1 -211
+1 211
+
+2 22
+2 22
+
+#rho0 pi0
+0 100443
+
+1 111
+1 113
+
+2 -211
+2 211
+2 22
+2 22
+
+#rho+ pi-
+0 100443
+
+1 213
+1 -211
+
+2 211
+2 111
+
+3 22
+3 22
+
+#rho- pi+
+0 100443
+
+1 -213
+1 211
+
+2 -211
+2 111
+
+3 22
+3 22
+
