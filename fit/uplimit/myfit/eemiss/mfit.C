@@ -1,3 +1,5 @@
+//this is a stable version but convolution doesn't work!
+//likelihood is right but nsig is wrong
 #include "/workfs/bes/lify/myinclude/rootult.h"
 using namespace RooFit;
 using namespace std;
