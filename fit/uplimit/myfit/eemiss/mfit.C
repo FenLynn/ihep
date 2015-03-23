@@ -1,5 +1,3 @@
-//this is a stable version but convolution doesn't work!
-//likelihood is right but nsig is wrong
 #include "/workfs/bes/lify/myinclude/rootult.h"
 using namespace RooFit;
 using namespace std;
@@ -20,11 +18,10 @@ TFile *f_ckfit=new TFile(out_ckfit,"RECREATE");
 const char* out_final="/besfs/users/lify/Root/Eemiss_v4/fit/myfit/include/run1/final.root";
 TFile *f_final=new TFile(out_final,"RECREATE");
 
-
 // 1 for gauss, 2 for single cball,3 for multi cball
 const int signal_shape_func = 3; 
 //set for opt in range,bkg,sig shape
-const int optfit = 0 ;// 1 for multi fit in range,signal shape and bk order; 0 for the normal single fit at every point
+const int optfit = 0;// 1 for multi fit in range,signal shape and bk order; 0 for the normal single fit at every point
 const int optrange = 1 ;// 1 for range change,0 for none
 const int optorder = 1 ;// 1 for order change,0 for none
 const int optshape = 1 ;// 1 for shape change,0 for none
@@ -49,63 +46,153 @@ const double par_sys_sigma = 0.1;
 //output likelihood txt info
 ofstream likeli("/besfs/users/lify/Root/Eemiss_v4/fit/myfit/include/run1/likelihood.txt",ios::app);
 ofstream resultfile("/besfs/users/lify/Root/Eemiss_v4/fit/myfit/include/run1/results.txt");
-//ofstream resultfile("results.txt",ofstream::out|ofstream::app);
+
+ofstream upsigtxt("/besfs/users/lify/Root/Eemiss_v4/fit/myfit/include/run1/upsig.txt");
+ofstream uplimittxt("/besfs/users/lify/Root/Eemiss_v4/fit/myfit/include/run1/uplimit.txt");
 
 //for debug
 const int _debug = 1;
 ofstream mydebug("/besfs/users/lify/Root/Eemiss_v4/fit/myfit/include/run1/mydebug.txt");
-//ofstream mydebug("mydebug.txt",ios::app);
 
 
 //=======================================================================================
-double like(double y1[],TString br_mass)
+double like(double y1[],TString br_mass,TString br_mass_title)
 {
+	TCanvas *c1=new TCanvas("c1","c1",1333,500);
+	TPad **pad = GenPad();
+//	TCanvas *c2=new TCanvas("c2","c2");
 	double x[maxfit];
 	double y[maxfit];
+	double like_sum = 0.;
 	double offset = 0.;
 	TH1F* yy=new TH1F("yy","yy",maxfit,0,maxfit*fit_div);
 	for(int i=0;i<maxfit;i++){
 		x[i]=i*fit_div;
 		y[i]=TMath::Exp(-1.*y1[i]+offset);
+		like_sum+=fit_div*y[i];
 		//mydebug<<"likeli:	"<<x[i]<<" "<<y1[i]<<" "<<y[i]<<endl;
 		yy->SetBinContent(i,y[i]);
 	}
-	//for convolution
+
 	RooRealVar xx("xx","xx",0,maxfit*fit_div);
-	RooDataHist llhood("llhood","llhood",xx,yy);
-	RooHistPdf llhoodpdf("llhoddpdf","likelihood pdf",xx,llhood,2);
-	//system unertainity gausssian
-	RooRealVar sys_sigma("sys_sigma","sys_sigma",par_sys_sigma);
-	RooRealVar sys_mean("sys_mean","sys_mean",0.);
+	//	RooDataHist llhood("llhood","llhood",xx,yy);
+	//	RooHistPdf llhoodpdf("llhoddpdf","likelihood pdf",xx,llhood,2);
+
+
+	/*
+	   RooRealVar fitl_sigma("fitl_sigma","fitl_sigma",maxfit*fit_div/2.,0,maxfit*fit_div);
+	   RooRealVar fitl_mean("fitl_mean","fitl_mean",maxfit*fit_div/2.,0,maxfit*fit_div);
+	   RooGaussian fitl_gauss("fitl_gauss","fitl_gauss",xx,fitl_mean,fitl_sigma);
+	   RooFitResult* r_gauss = fitl_gauss.fitTo(llhood,RooFit::Save(kTRUE));
+	   */
+
 	//sys_mean.setConstant();
-	RooGaussian sys_gauss("sys_gauss","gauss",xx,sys_mean,sys_sigma);
-	xx.setBins(1000,"cache");
-	RooFFTConvPdf llhg("llhg","likelihood convoluted gauss",xx,llhoodpdf,sys_gauss);
+	//	xx.setBins(1000,"cache");
+
+	//	RooAbsReal* llhg_cdf = llhoodpdf.createCdf(xx); 
+
+	TF1 *g1    = new TF1("g1","gaus",0,maxfit*fit_div);
+	g1->SetParameters(1.e+22,5.0,2.3);  
+	g1->SetLineColor(2);
+	TGraph *gr = new TGraph(maxfit,x,y);
+	gr->SetLineColor(2);
+	gr->SetLineWidth(2);
+	gr->SetMarkerColor(4);
+	gr->SetMarkerSize(0.7);
+	gr->SetMarkerStyle(8);
+	gr->SetTitle(" ");
+	gr->GetXaxis()->SetTitle("N");
+	gr->GetYaxis()->SetTitle("Normalized Likelihood");
+	gr->Fit("g1","R");
+//	gr->Draw("ap");
+	
+	double gpar[3];
+	gpar[0]=g1->GetParameter(0);
+	gpar[1]=g1->GetParameter(1);
+	gpar[2]=g1->GetParameter(2);
+
+	RooRealVar like_mean("like_mean","like_mean",gpar[1]);
+	RooRealVar like_sigma("like_sigma","like_sigma",gpar[2]);
+	RooGaussian like_gauss("like_gauss","like_gauss",xx,like_mean,like_sigma);
+	//system unertainity gausssian
+	RooRealVar sys_mean("sys_mean","sys_mean",0.);
+	RooRealVar sys_sigma("sys_sigma","sys_sigma",par_sys_sigma);
+	RooGaussian sys_gauss("sys_gauss","sys_gauss",xx,sys_mean,sys_sigma);
+	
+	RooFFTConvPdf llhg("llhg","likelihood convoluted gauss",xx,like_gauss,sys_gauss);
 	RooAbsReal* llhg_cdf = llhg.createCdf(xx); 
+	RooAbsReal* like_cdf = like_gauss.createCdf(xx); 
+
 	double _90upsig=llhg_cdf->findRoot(xx,0,maxfit*fit_div,0.90);
+/*
+	double temp_sum = 0.;
+	double _90upsig = -1.;
+	for(int i=0;i<maxfit;i++)
+	{
+		temp_sum+=y[i]*fit_div;
+		if(temp_sum >= 0.90*like_sum) 
+		{
+			_90upsig = i;
+			break;
+		}
+	}
+*/
 	if(out_savellUL == 1){
-		TArrow *ar = new TArrow(_90upsig, 0.02, _90upsig, 0., 0.01,"|>");
-		TLatex ltx(_90upsig,0.018,Form("N_{signal} = %.2f @90 C.L.",_90upsig));
+		TArrow *ar = new TArrow(_90upsig, 1, _90upsig, 0., 0.01,"|>");
+		ar->SetLineWidth(3);
+		ar->SetFillColor(1);
+		TArrow *ar1 = new TArrow(_90upsig, 0.02, _90upsig, 0., 0.01,"|>");
+		ar1->SetLineWidth(3);
+		ar1->SetFillColor(1);
+	
+		TLatex ltx(0.5,0.8,Form("N_{signal} = %.2f @90%% C.L.",_90upsig));
+		ltx.SetTextFont(62);
+		ltx.SetTextColor(2);
+		ltx.SetTextSize(0.04);
+		ltx.SetNDC();
+		TLegend *leg1=ModLeg(0.5,0.6,0.7,0.72);
+		TLegend *leg2=ModLeg(0.5,0.6,0.7,0.72);
+
 		RooPlot *xxframe=xx.frame();
-		llhg.plotOn(xxframe,LineStyle(1),LineColor(kRed));
-		llhoodpdf.plotOn(xxframe,LineStyle(kDashed),LineColor(kGreen));
-		TCanvas *c=new TCanvas("c","c");
-		c->SetName(br_mass);
-		c->SetTitle(br_mass);
-		c->cd();
+		RooPlot *xx1frame=xx.frame();
+		c1->SetName(br_mass_title);
+		c1->SetTitle(br_mass_title);
+		llhg.plotOn(xxframe,LineStyle(1),LineColor(kRed),RooFit::Name("llhg"));
+		like_gauss.plotOn(xxframe,LineStyle(kDashed),LineColor(kBlue),RooFit::Name("like_gauss"));
+		llhg_cdf->plotOn(xx1frame,LineStyle(1),LineColor(kRed),RooFit::Name("llhg_cdf"));
+		like_cdf->plotOn(xx1frame,LineStyle(kDashed),LineColor(kBlue),RooFit::Name("like_cdf"));
+		
+		leg1->AddEntry(xxframe->findObject("llhg"),"Likelihood with Convolution");
+		leg1->AddEntry(xxframe->findObject("like_gauss"),"Likelihood without Convolution");
+		leg2->AddEntry(xx1frame->findObject("llhg_cdf"),"Cdf with Convolution");
+		leg2->AddEntry(xx1frame->findObject("like_cdf"),"Cdf without Convolution");
+
+		pad[0]->cd();	
+		pad[0]->SetGrid();
 		xxframe->Draw();
+		ar1->DrawClone();
+		ltx.DrawClone();
+		leg1->DrawClone();
+		NameAxis(xxframe,"N_{signal}","Likelihood","Fitting likelihood for "+br_mass);
+
+		pad[1]->cd();
+		pad[1]->SetGrid();
+		xx1frame->Draw();
 		ar->DrawClone();
 		ltx.DrawClone();
-		f_final->cd();
-		c->Write();
+		leg2->DrawClone();
+		NameAxis(xx1frame,"N_{signal}","Integration","Fitting Cdf for "+br_mass);
+		
+		f_final->cd(br_mass);
+		c1->Write();
 	}
 	return _90upsig;
 }
 
 double cal_ul(double upsig,double eff){
 	const double Njpsi= 1086.9e6;
-//	const double eNjpsi = 6.0e6;
-	const double delta_sys = 0.;
+	//	const double eNjpsi = 6.0e6;
+	const double delta_sys = 0.1;
 	const int _normal = 0;
 	double ul_br = -1.;
 	if(_normal == 1){
@@ -237,9 +324,14 @@ void sfit(double fit_u, double fit_low,double fit_high,int bkg_ord, int sig_side
 		RooRealVar fit_sigma("sigma","sigma",par_sigma) ;
 		RooRealVar fit_n1("n1","n1",par_n1);
 		RooRealVar fit_alpha("alpha","alpha",par_alpha);
+		//fixed signal shape
 		fit_sigma.setConstant();
 		fit_n1.setConstant();
 		fit_alpha.setConstant();
+		//fixed fit mean
+		fit_mean.setVal(fit_u);
+		fit_mean.setConstant();
+
 		RooCBShape cball("cball","crystal ball",ee_ivm,fit_mean,fit_sigma,fit_alpha,fit_n1);
 		RooRealVar nsig("nsig","nsig",0,200);
 		RooExtendPdf ecball("ecball","ecball",cball,nsig);
@@ -247,6 +339,14 @@ void sfit(double fit_u, double fit_low,double fit_high,int bkg_ord, int sig_side
 		RooDataSet data("data","data with Mee",tee,ee_ivm);
 		RooAddPdf model("model","sig+bkg",RooArgList(ecball,ebkg),RooArgList(nsig,nbkg));
 
+		TString br_mass_title="";
+		br_mass_title+=br_mass;
+		br_mass_title+="_";
+		br_mass_title+=Form("%.2f",fit_high-fit_low);
+		br_mass_title+="_";
+		br_mass_title+=bkg_ord;
+		br_mass_title+="_";
+		br_mass_title+=sig_side;
 		//fit beginc----------------------------------------------------------------------------------------		
 		bool offset=false;
 		double offsetValue=0.;
@@ -281,29 +381,36 @@ void sfit(double fit_u, double fit_low,double fit_high,int bkg_ord, int sig_side
 				model.plotOn(eeframe,LineColor(kRed));
 				model.paramOn(eeframe);
 				f_ckfit->cd(br_mass);
+				TString eeframe_title="";
+				eeframe_title+=br_mass_title;
+				eeframe_title+=Form("_%.2f",nsignal);
+				eeframe->SetName(eeframe_title);
 				eeframe->Write();
 			}
-			
+
 		}
 		double up_sig = -1.;
 		double up_limit = -1.;
-		up_sig=like(like_array,br_mass);
+		
+
+		up_sig=like(like_array,br_mass,br_mass_title);
 		up_limit=cal_ul(up_sig,par_eff);
 		mydebug<<"original:	"<<up_sig<<" "<<up_limit<<endl;
 		up_value[0] = up_sig;
 		up_value[1] = up_limit;
 		/*
-		if(_debug == 1){
-			mydebug<<endl;
-			mydebug<<up_sig<<endl;
-			mydebug<<up_limit<<endl;
-		}
+		   if(_debug == 1){
+		   mydebug<<endl;
+		   mydebug<<up_sig<<endl;
+		   mydebug<<up_limit<<endl;
+		   }
 		*/
 	}
 }
 
 void mfit(){
 	//sfit(0.8,0.7,0.9);
+	SetMyStyle();
 	int iee=0;
 	double mass=0.;
 	double up_value[2];
@@ -312,6 +419,12 @@ void mfit(){
 	const int mf_shape[3]={-1,0,1};
 	const int mf_bkg[4]={1,2,3,4};
 	double mass_array[global_nsteps],tupsig[global_nsteps],tuplimit[global_nsteps];
+	for(int i=0;i<global_nsteps;i++){
+		mass_array[i]=-1.;
+		tupsig[i]=-1.;
+		tuplimit[i]=-1.;
+	}
+
 	double q_upsig[10]={-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 	double q_uplimit[10]={-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 
@@ -319,13 +432,16 @@ void mfit(){
 	int temp_shape,temp_bkg;
 
 	for(iee=0;iee<global_nsteps;iee++){
-		//if(iee > 50 || (iee%10!=0) ) continue;
-		//if(iee!=120 ) continue;
+//		if(iee > 50 || (iee%10!=0) ) continue;
+		if(iee!=40  &&  iee!=120  ) continue;
+//		if(iee!=40 ) continue;
 		mass=global_low+iee*global_stepdiv;
+		mass_array[iee]=mass;
 		TString br_mass="";
 		br_mass+="mee";
 		br_mass+=Form("%.2f",mass);
 		f_ckfit->mkdir(br_mass);
+		f_final->mkdir(br_mass);
 		if(optfit == 0)
 		{
 			temp_low=mass-mf_len[1];
@@ -427,13 +543,27 @@ void mfit(){
 		}
 
 	}
+	
+	for(int i=0;i<global_nsteps;i++){
+		upsigtxt<<mass_array[i]<<" "<<tupsig[i]<<endl;
+		uplimittxt<<mass_array[i]<<" "<<tuplimit[i]<<endl;
+	}
+
 	TGraph *g_upsig = new TGraph(global_nsteps,mass_array,tupsig);
 	TGraph *g_uplimit = new TGraph(global_nsteps,mass_array,tuplimit);
-
+	
+	NameAxis(g_upsig,"M(e^{+}e^{-}) (GeV/c^{2})","N_{signal}","Fitted upper N_{signal} @90% C.L.");
+	NameAxis(g_uplimit,"M(e^{+}e^{-}) (GeV/c^{2})","BR(J/#psi->Uh)#timesBR(U->e^{+}e^{-})","Fitted upper limit @90% C.L.");
+	g_upsig->SetName("upper_signal");
+	g_uplimit->SetName("upper_limit");
+//	TCanvas *cc = new TCanvas("cc","cc");
+//	cc->cd();
+//	g_upsig->Draw("ap");
 	f_final->cd();
+//	cc->Write();
 	g_upsig->Write();
 	g_uplimit->Write();
-	
+
 	f_ckfit->Close();
 	f_final->Close();
 
