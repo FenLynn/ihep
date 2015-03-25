@@ -1,0 +1,5 @@
+mergesig is used for perform final selection  quantiites signal root files. ana directory is template
+
+geshape is to get the signal shape (crystal ball) and calculate the efficiency and merge the needed branch together
+
+mfit is used for a multi fit based on different signal shape at different energy point.
