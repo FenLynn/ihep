@@ -12,5 +12,12 @@
 #include "RooExtendPdf.h"
 #include "RooDataSet.h"
 #include "RooPlot.h"
+#include "RooHistPdf.h"
+#include "RooResolutionModel.h"
+#include "RooGaussModel.h"
+#include "RooDataHist.h"
+#include "RooFFTConvPdf.h"
+#include "RooAbsReal.h"
+#include "RooNumConvPdf.h"
 
 #endif

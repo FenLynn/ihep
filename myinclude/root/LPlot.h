@@ -107,26 +107,9 @@ void FormatAxis(TAxis * axis){
 	axis->CenterTitle();
 }
 
+
 //
 //format and name Axis
-template <class Type>
-void NameAxis(Type* datahist, char * xname=NULL, char * yname=NULL,char *title=NULL){
-	if(xname)
-	{
-		datahist->GetXaxis()->SetTitle(xname);
-		FormatAxis(datahist->GetXaxis());
-	}
-	if(yname)
-	{
-		datahist->GetYaxis()->SetTitle(yname);
-		FormatAxis(datahist->GetYaxis());
-	}
-	if(title)
-	{
-		datahist->SetTitle(title);
-	}
-}
-
 template <class Type>
 void NameAxis(Type* datahist, TString xname="", TString yname="",TString title=""){
 	if(xname)
@@ -145,6 +128,23 @@ void NameAxis(Type* datahist, TString xname="", TString yname="",TString title="
 	}
 }
 
+template <class Type>
+void NameAxis(Type* datahist, char * xname=NULL, char * yname=NULL,char *title=NULL){
+	if(xname)
+	{
+		datahist->GetXaxis()->SetTitle(xname);
+		FormatAxis(datahist->GetXaxis());
+	}
+	if(yname)
+	{
+		datahist->GetYaxis()->SetTitle(yname);
+		FormatAxis(datahist->GetYaxis());
+	}
+	if(title)
+	{
+		datahist->SetTitle(title);
+	}
+}
 //
 //format line  graph
 template <class Type>
@@ -435,6 +435,22 @@ void drawData(Type* a,Type* b)
 	{
 		b->Draw();
 		a->Draw("esame");
+	}		
+}
+
+//draw mc and line hist as order
+template <class Type>
+void drawMC(Type* a,Type* b)
+{
+	if((a->GetMaximum())>=(b->GetMaximum()))
+	{
+		a->Draw("");
+		b->Draw("same");
+	}
+	else
+	{
+		b->Draw();
+		a->Draw("same");
 	}		
 }
 /*

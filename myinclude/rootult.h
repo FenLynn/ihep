@@ -6,7 +6,7 @@
 #include "/workfs/bes/lify/myinclude/root/LRooFit.h"
 #include "/workfs/bes/lify/myinclude/root/LPlot.h"
 
-#include "/workfs/bes/lify/myinclude/class/LCkEnv.h"
+//#include "/workfs/bes/lify/myinclude/class/LCkEnv.h"
 #include "/workfs/bes/lify/myinclude/func/LMath.h"
 
 #endif
