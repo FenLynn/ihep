@@ -8,7 +8,7 @@
  */
 {
 	TChain *f=new TChain("nbinfo","");
-	f->Add("../Eemiss*.root");
+	f->Add("../*.root");
 	char *nb="num";
 	f->MakeClass(nb);
 	system("cp ./numbak.C ./num.C");
