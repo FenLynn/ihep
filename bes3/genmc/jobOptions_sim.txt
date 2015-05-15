@@ -1,0 +1,40 @@
+#include "$OFFLINEEVENTLOOPMGRROOT/share/OfflineEventLoopMgr_Option.txt"
+
+//*************job options for generator (KKMC)***************
+#include "$KKMCROOT/share/jobOptions_KKMC.txt"
+KKMC.CMSEnergy = 3.097;
+KKMC.BeamEnergySpread=0.0008;
+KKMC.NumberOfEventPrinted=10;
+KKMC.GenerateJPsi=true;
+KKMC.ParticleDecayThroughEvtGen = true;
+KKMC.TagISR = 1;
+KKMC.TagFSR = 1;
+
+
+//*************job options for EvtGen***************
+#include "$BESEVTGENROOT/share/BesEvtGen.txt"
+EvtDecay.userDecayTableName="./sim.dec";
+EvtDecay.PdtTableDir = "./pdt.table";
+
+//**************job options for random number************************
+BesRndmGenSvc.RndmSeed = 1NUM;
+
+//**************job options for detector simulation******************
+#include "$BESSIMROOT/share/G4Svc_BesSim.txt"
+
+//configure for calibration constants
+#include "$CALIBSVCROOT/share/calibConfig_sim.txt"
+
+// run ID
+RealizationSvc.RunIdList = {-9947,0,-10878};
+//RealizationSvc.RunIdList = {-27255,0,-28236};
+
+#include "$ROOTIOROOT/share/jobOptions_Digi2Root.txt"
+RootCnvSvc.digiRootOutputFile="/besfs/groups/higgs/users/lify/664p01/raw/etapee/gpipi/gametap/gametap_NUM.rtraw";
+
+// OUTPUT PRINTOUT LEVEL
+// Set output level threshold (2=DEBUG, 3=INFO, 4=WARNING, 5=ERROR, 6=FATAL )
+MessageSvc.OutputLevel  = 5;
+
+// Number of events to be processed (default is 10)
+ApplicationMgr.EvtMax = 10000;

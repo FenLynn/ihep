@@ -8,14 +8,11 @@
  */
 {
 	int debug=0;
-	//system("pwd");
-	gROOT->ProcessLine(".x mkclass.C");
-	gROOT->ProcessLine(".L num.C++");
+	gROOT->ProcessLine(".L mfit.C++");
 
 	if(debug==0)
 	{
-		gROOT->ProcessLine("num t");
-		gROOT->ProcessLine("t.Loop()");
+		gROOT->ProcessLine("mfit()");
 		gROOT->ProcessLine(".q");
 	}
 

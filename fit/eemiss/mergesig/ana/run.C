@@ -1,17 +1,21 @@
 /*
  *======================================================================================
- *       FILENAME: get_no.C
- *        CREATED: 2014年12月10日 00时00分24秒
+ *       FILENAME: run.C
+ *        CREATED: 2014年12月11日 12时01分41秒
  *         AUTHOR: Fengyun Li,lfypku@gmail.com
  *    DESCRIPTION: 
  * =====================================================================================
  */
 {
-	TChain *f=new TChain("nbinfo","");
-	f->Add("../*.root");
-	char *nb="num";
-	f->MakeClass(nb);
-	system("cp ./numbak.C ./num.C");
-	cout<<"num class made finished"<<endl;
-}
+	int debug=0;
+	gROOT->ProcessLine(".L df.C++");
 
+	if(debug==0)
+	{
+		gROOT->ProcessLine("df t");
+		gROOT->ProcessLine("t.Loop()");
+		gROOT->ProcessLine(".q");
+	}
+
+
+}

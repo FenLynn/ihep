@@ -32,6 +32,7 @@
 #include "TGraph.h"
 #include "TFrame.h"
 #include "TAxis.h"
+#include "TMultiGraph.h"
 #include "TString.h"
 #include "TMath.h" 
 //#include "TIter.h"
