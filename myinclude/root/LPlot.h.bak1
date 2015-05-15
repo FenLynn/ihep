@@ -26,10 +26,8 @@
 template <class Type>
 void FormatData(Type* datahist){
 	datahist->SetMarkerStyle(20);
-	datahist->SetMarkerColor(1);
 	datahist->SetMarkerSize(0.7);
 	datahist->SetLineWidth(2);
-	datahist->SetLineColor(1);
 	FormatAxis(datahist->GetXaxis());
 	FormatAxis(datahist->GetYaxis());
 }

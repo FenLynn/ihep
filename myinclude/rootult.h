@@ -8,6 +8,7 @@
 
 //#include "/workfs/bes/lify/myinclude/class/LCkEnv.h"
 #include "/workfs/bes/lify/myinclude/func/LMath.h"
+#include "/workfs/bes/lify/myinclude/func/LTime.h"
 
 #endif
 
