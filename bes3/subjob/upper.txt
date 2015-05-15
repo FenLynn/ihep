@@ -2,7 +2,7 @@
 #include "$VERTEXFITROOT/share/jobOptions_VertexDbSvc.txt"
 #include "$MAGNETICFIELDROOT/share/MagneticField.txt"
 #include "$ABSCORROOT/share/jobOptions_AbsCor.txt"
-#include "/besfs/users/lify/workboss/664p01/EemissAlg/EemissAlg-00-00-08/share/jobOptions_Eemiss.txt"
+#include "/besfs/users/lify/workboss/664p01/Analysis/Physics/GPiPiEEAlg/GPiPiEEAlg-00-00-01/share/jobOptions_GPiPiEE.txt"
 
 // Input REC or DST file name
 EventCnvSvc.digiRootInputFile = 

@@ -1,8 +1,0 @@
-#include "$VERTEXFITROOT/share/jobOptions_VertexDbSvc.txt"
-ApplicationMgr.DLLs += {"EemissAlg"};
-ApplicationMgr.TopAlg += { "Eemiss" };
-
-Eemiss.epcut=0.7;
-
-Eemiss.chk1C=1;
-Eemiss.saveTopoTree=0;

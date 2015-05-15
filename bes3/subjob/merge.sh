@@ -30,28 +30,26 @@ MY_FILEE=100000
 
 ###variable user difine####################
 #The number of data files you want to sub in one job.My_NUM cant't be 1.
-MY_NUM=50
+MY_NUM=40
 #The name of table of path of data file
-DST_TABLE=jpsi12mc
+DST_TABLE=gpipiee.txt
 #The end line of the path table you want to stop. Zero means for all
-END=4
-#END=0
+#END=4
+END=20
 
-PROJECTNAME="Eemiss"
+PROJECTNAME="GPiPiEE"
 
 SUBWORKNAME="sub${PROJECTNAME}.txt"
-OUTPATH="/scratchfs/bes/lify/664p01/root/${PROJECTNAME}/mc12"
+OUTPATH="/besfs/groups/higgs/users/lify/664p01/root/etapee/gpipi/sig"
 
 CPWD=$(pwd -P)
 
 if [ ! -e $OUTPATH ];then
 	echo "Outpath isn't exist!"
 	mkdir -p ${OUTPATH}
-#	mkdir ${OUTPATH}/tuple
 fi
 
 
-#all.sh > $DST_TABLE
 TOTAL=`cat $DST_TABLE|wc -l`
 if [ $TOTAL -le $END ];then
     END=$TOTAL
