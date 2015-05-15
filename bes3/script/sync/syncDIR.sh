@@ -21,8 +21,8 @@ rsync -az  $SOURCE3 $DST3
 echo "Sync directory: $SOURCE3 to  $DST3 " >> $LOGTXT
 
 
-SOURCE4=~/dstdir
-DST4=/workfs/bes/lify/git/bes3/dstdir
+SOURCE4=~/dstdir/
+DST4=/workfs/bes/lify/git/bes3/dstdir/
 rsync -az  $SOURCE4 $DST4
 echo "Sync directory: $SOURCE4 to  $DST4 " >> $LOGTXT
 
