@@ -1,7 +1,7 @@
 #!/bin/bash
 LOGTXT=~/script/sync/log.sync
 
-echo "Sync time: $(date)" >> $LOGTXT
+echo "Sync Directory time: $(date)" >> $LOGTXT
 
 SOURCE1=~/mytest/
 DST1=/workfs/bes/lify/git/mytest/
@@ -27,4 +27,4 @@ rsync -az  $SOURCE4 $DST4
 echo "Sync directory: $SOURCE4 to  $DST4 " >> $LOGTXT
 
 
-echo -e "\n" >> $LOGTXT
+#echo -e "\n" >> $LOGTXT

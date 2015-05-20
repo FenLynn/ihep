@@ -8,7 +8,7 @@
 #===============================================================================
 
 #DSTPATH='/bes3fs/offline/data/664p01/psip/mc/09dst/'
-FILE="path.txt"
+FILE="psipp664dst"
 
 #sed -i "s%^%${DSTPATH}%g;"  $FILE
 sed -i "s%^%\"%g;"  $FILE

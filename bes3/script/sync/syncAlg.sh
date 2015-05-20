@@ -1,6 +1,6 @@
 #!/bin/bash
 CPWD=$(pwd -P)
-
+LOGTXT=~/script/sync/log.sync
 BAKHOME=/besfs/users/lify/workboss
 DSTHOME=/workfs/bes/lify/workboss
 foreachd(){
@@ -20,16 +20,16 @@ foreachd(){
 			if [ $passdir -eq 1 ];then
 				continue
 			fi
-			echo $temp_target
+		#	echo $temp_target
 			mkdir -p $DSTDIR$temp_target
 			foreachd $file
 		elif [ -f $file ]
 		then
 		
 			temp_file=$( echo $file |  cut -d . -f 2-10)
-			echo "copying" 
-			echo $BAKDIR$temp_file
-			echo $DSTDIR$temp_file
+		#	echo "copying" 
+		#	echo $BAKDIR$temp_file
+		#	echo $DSTDIR$temp_file
 			cp $BAKDIR$temp_file  $DSTDIR$temp_file
 		fi
 	done
@@ -45,8 +45,8 @@ do
 	foreachd .
 done
 
-
-
+echo "Sync Analysis Package time: $(date)" >> $LOGTXT
+#echo -e "\n" >> $LOGTXT
 
 cd $CPWD
 

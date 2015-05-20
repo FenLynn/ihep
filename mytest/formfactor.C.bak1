@@ -1,0 +1,57 @@
+#include <stdlib.h>
+#include <iostream>
+#include <stdio.h>
+#include <cmath>
+#include "/workfs/bes/lify/myinclude/rootall.h"
+
+void formfactor(){
+	mytime->Print();
+	TFile *fout=new TFile("./out.root","RECREATE");
+	TTree *tree=new TTree("F","F");
+	double T2,f2;
+	int Nsuccess=0;
+	tree->Branch("T2",&T2,"T2/D");
+	tree->Branch("f2",&f2,"f2/D");
+	double Ecms=3.097;
+	double me=0.000511;
+	double metap=0.978;
+	double mPsip = 3.68609;
+	TLorentzVector jpsi,e1,e2,vp,P;
+	jpsi.SetPxPyPzE(0.011*Ecms,0.,0.,Ecms);
+	for(int i=0;i<1000000;i++){
+
+		gRandom->SetSeed(3);
+		double e1x,e1y,e1z,e1E;
+		e1x=gRandom->Uniform(0,1);
+		e1y=gRandom->Uniform(0,1);
+		e1z=gRandom->Uniform(0,1);
+		e1E=sqrt(me*me+e1x*e1x+e1y*e1y+e1z*e1z);
+		e1.SetPxPyPzE(e1x,e1y,e1z,e1E);
+
+		gRandom->SetSeed(4);
+		double e2x,e2y,e2z,e2E;
+		e2x=gRandom->Uniform(0,1);
+		e2y=gRandom->Uniform(0,1);
+		e2z=gRandom->Uniform(0,1);
+		e2E=sqrt(me*me+e2x*e2x+e2y*e2y+e2z*e2z);
+		e2.SetPxPyPzE(e2x,e2y,e2z,e2E);
+
+		vp=e1+e2;
+		P=jpsi-vp;
+		if(P.M()<0.87|| P.M()>1.03 ) continue;
+		double pq=P.E()*vp.E()-P.Px()*vp.Px()-P.Py()*vp.Py()-P.Pz()*vp.Pz();
+		double qq=vp.M2();
+		double pp=P.M2();
+		double k1p=P.E()*e1.E()-P.Px()*e1.Px()-P.Py()*e1.Py()-P.Pz()*e1.Pz();
+		double k2p=P.E()*e2.E()-P.Px()*e2.Px()-P.Py()*e2.Py()-P.Pz()*e2.Pz();
+		double mlep2=me*me;
+		f2 = ( 1/(1.0-qq/(mPsip*mPsip)) ) * ( 1/(1.0-qq/(mPsip*mPsip)) );
+		T2 = f2*(8*pq*pq*mlep2 - 8*pp*qq*mlep2 - 2*pp*qq*qq - 8*k1p*k2p*qq + 4*pq*pq*qq)/(qq*qq);
+		tree->Fill();
+		Nsuccess++;
+	}
+	tree->AutoSave();
+	cout<<"success:      "<<Nsuccess<<endl;
+	mytime->Print();
+}
+
