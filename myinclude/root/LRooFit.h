@@ -19,5 +19,6 @@
 #include "RooFFTConvPdf.h"
 #include "RooAbsReal.h"
 #include "RooNumConvPdf.h"
+#include "RooVoigtian.h"
 
 #endif

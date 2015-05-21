@@ -201,8 +201,8 @@ void SetMyStyle()
 	gStyle->SetCanvasBorderMode(0);
 	gStyle->SetCanvasBorderSize(0);
 	gStyle->SetCanvasColor(kWhite);
-	gStyle->SetCanvasDefH(900);
-	gStyle->SetCanvasDefW(1200);
+	gStyle->SetCanvasDefH(600);
+	gStyle->SetCanvasDefW(800);
 	gStyle->SetCanvasDefX(0);
 	gStyle->SetCanvasDefY(0);
 	
