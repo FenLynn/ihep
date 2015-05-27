@@ -37,7 +37,7 @@ foreachd(){
 
 
 
-for Ver in 664p03 664p01
+for Ver in 664p03 664p01 664
 do
 	BAKDIR=$BAKHOME/$Ver/Analysis
 	DSTDIR=$DSTHOME/$Ver/Analysis
