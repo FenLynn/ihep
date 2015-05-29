@@ -38,6 +38,33 @@ void FormatData(Type* datahist){
 // Format for MC line
 
 template <class Type>
+//void ModLine(Type* mchist , Color_t icolor=2 , Style_t istyle=1 , Width_t iwidth=2 ){
+void ModLine(Type* mchist , Int_t icolor = 2 , Int_t istyle = 1 , Double_t iwidth = 2. ){
+	mchist->SetLineColor(icolor);
+	mchist->SetLineWidth(iwidth);
+	mchist->SetLineStyle(istyle);
+}
+
+template <class Type>
+void ModFill(Type* mchist,int icolor=4,int istyle=1001){
+	mchist->SetFillColor(icolor);
+	mchist->SetLineColor(0);
+	mchist->SetLineWidth(0);
+	mchist->SetFillStyle(istyle);
+}
+
+template <class Type>
+void ModData(Type* mchist,int mstyle=20, int mcolor=1, double msize=0.3, double lcolor=1,int lwidth=2){
+	mchist->SetMarkerStyle(mstyle);
+	mchist->SetMarkerColor(mcolor);
+	mchist->SetMarkerSize(msize);
+	mchist->SetLineColor(lcolor);
+	mchist->SetLineWidth(lwidth);
+}
+
+
+
+template <class Type>
 void FormatMC(Type* mc1hist){
 	mc1hist->SetLineColor(kAzure+7);
 	mc1hist->SetLineWidth(0);
@@ -99,14 +126,16 @@ void FormatMC(Type* mc1hist,int color){
 //
 //format one Axis
 void FormatAxis(TAxis * axis){
-	axis->SetLabelFont(42);
-	axis->SetLabelSize(0.025);
-	axis->SetLabelOffset(0.005);
-	axis->SetNdivisions(510);
-	axis->SetTitleFont(62);
-	axis->SetTitleColor(1);
+//	axis->SetLabelFont(42);
+//	axis->SetTitleFont(22);
+///	axis->SetTitleOffset(.62);
+	axis->SetLabelSize(0.04);
 	axis->SetTitleSize(0.06);
-	axis->SetTitleOffset(.62);
+	axis->SetLabelOffset(0.005);
+//	axis->SetNdivisions(505);
+	axis->SetTitleFont(22);
+	axis->SetLabelFont(22);
+	axis->SetTitleColor(1);
 	axis->CenterTitle();
 }
 
@@ -365,15 +394,13 @@ TLegend* ModLeg(double x1=0.5,double y1=.74,double x2=.7,double y2=.87)
 	TLegend* leg=new TLegend(x1,y1,x2,y2);
 	leg->SetFillColor(0);
 	leg->SetTextFont(42);
-	leg->SetTextAlign(22);
-	leg->SetTextSize(0.03);
+	leg->SetTextSize(0.04);
 	leg->SetFillStyle(0);
 	leg->SetBorderSize(0);
 	leg->SetTextAlign(12);
 //	leg->SetTextSizePixels(100);
 //	leg->Draw();
 	return leg;
-
 }
 
 

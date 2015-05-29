@@ -4,7 +4,6 @@
 #include "/workfs/bes/lify/myinclude/root/LCPP.h"
 #include "/workfs/bes/lify/myinclude/root/LRooHead.h"
 #include "/workfs/bes/lify/myinclude/root/LPlot.h"
-#include "/workfs/bes/lify/myinclude/root/LRooVar.h"
 
 #endif
 
