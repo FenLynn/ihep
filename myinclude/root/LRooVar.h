@@ -1,2 +1,0 @@
-TDatime *mytime = new TDatime();
-
