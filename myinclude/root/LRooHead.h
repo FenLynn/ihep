@@ -40,4 +40,7 @@
 
 using namespace std;
 
+//initialize varible
+TDatime *mytime = new TDatime();
+
 #endif
