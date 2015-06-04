@@ -10,10 +10,20 @@ alias qs="qstat -u $USER"
 #PS1="\[\e[0;34m\][\[\e[m\]\[\e[0;32m\]\u\[\e[m\]\[\e[0;32m\]@\[\e[m\]\[\e[0;32m\]\h\[\e[m\] \[\e[0;36m\]\A\[\e[m\] \[\e[0;31m\]\W\[\e[m\]\[\e[0;34m\]]\[\e[m\]\$ "
 #export PS1="\[\e[0;34m\][\[\e[m\]\[\e[0;32m\]\u\[\e[m\]\[\e[0;32m\]@\[\e[m\]\[\e[0;32m\]\h\[\e[m\] \[\e[0;36m\]\A\[\e[m\] \[\e[0;35m\]\W\[\e[m\]\[\e[0;34m\]]\[\e[m\]\[\e[0;34m\]\$\[\e[m\] \[\e[0;31m\]"
 NOHOST=`echo $HOSTNAME|cut -c 6-8`
-if [ $BES_RELEASE ];then
+
+#if [ $BES_RELEASE ];then
+#	BES_VER=" $BES_RELEASE "
+#else
+#	BES_VER=" "
+#fi
+
+if [ $WorkArea ];then
+	BES_VER=" "`basename $WorkArea`" "	
+elif [ $BES_RELEASE ];then
 	BES_VER=" $BES_RELEASE "
 else
 	BES_VER=" "
 fi
+
 export PS1="\[\e[0;34m\][\[\e[m\]\[\e[0;33m\]\u\[\e[m\]\[\e[0;33m\]@\[\e[m\]\[\e[0;33m\]${NOHOST}\[\e[m\]\[\e[0;32m\]${BES_VER}\[\e[m\]\[\e[0;36m\]\A\[\e[m\] \[\e[0;35m\]\W\[\e[m\]\[\e[0;34m\]]\[\e[m\]\[\e[0;34m\]\$\[\e[m\] \[\e[0;31m\]"
 #export PS1="\[\e[0;34m\][\[\e[m\]\[\e[0;33m\]\u\[\e[m\]\[\e[0;33m\]@\[\e[m\]\[\e[0;33m\]${NOHOST}\[\e[m\] \[\e[0;36m\]\A\[\e[m\] \[\e[0;35m\]\W\[\e[m\]\[\e[0;34m\]]\[\e[m\]\[\e[0;34m\]\$\[\e[m\] \[\e[0;31m\]"
