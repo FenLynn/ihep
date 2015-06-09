@@ -5,7 +5,7 @@ void cdmystyle(){
 	myStyle->SetCanvasBorderMode(0);
 	myStyle->SetCanvasColor(0);
 	myStyle->SetFrameBorderMode(0);
-	myStyle->SetFrameBorderSize(0);
+	myStyle->SetFrameBorderSize(3);
 	myStyle->SetFrameLineStyle(1);
 	myStyle->SetFrameLineWidth(2);
 	myStyle->SetFrameLineColor(0);
@@ -56,7 +56,7 @@ void cdmystyle(){
 	myStyle->SetTitleSize(0.06,"xyz");
 	myStyle->SetLabelOffset(0.005);
 	myStyle->SetTitleOffset(0.7,"x");
-	myStyle->SetTitleOffset(1.0,"y");
+	myStyle->SetTitleOffset(0.9,"y");
 	myStyle->SetTitleFont(22);
 	myStyle->SetLabelFont(22);
 
