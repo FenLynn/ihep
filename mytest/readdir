@@ -1,0 +1,28 @@
+#! /usr/bin/perl -w
+use strict;
+
+#my $dir ="/afs/ihep.ac.cn/users/c/chuxk/workfs/workarea664/Batch/Jpsi2012/";
+#my $dir ="/afs/ihep.ac.cn/users/c/chuxk/workfs/workarea664p03/Batch/psip12/";
+#my $dir ="/bes3fs/offline/data/664-1/3650/dst/";
+#my $dir ="/afs/ihep.ac.cn/users/c/chuxk/scratchfs/664/TwoGammaData/Jpsi_2009/";
+#my $dir ="/afs/ihep.ac.cn/users/c/chuxk/scratchfs/BatchRun/Jpsi_2009/";
+#my $dir ="/afs/ihep.ac.cn/users/c/chuxk/scratchfs/664/Etap_Dalitz/RootMAMI/";
+my $dir ="/scratchfs/bes/lify/664/root/etapee/gampipi/sig/";
+#my $dir = "/bes3fs/offline/data/664p01/psipp/mc/round04/dst/DpDm/";
+
+my $file;
+my @dir;
+opendir (DIR, $dir) or die "cannot open the directory!";
+@dir = readdir DIR;
+open(OUTFILE,">./3650");
+foreach $file (@dir) {
+   if ($file =~ /[a-z]*\.root/) {
+#   if ($file =~ /[a-z]*\.txt/) {
+#       if($file =~ /12*/){
+         print OUTFILE $dir;
+         print OUTFILE $file;
+         print OUTFILE "\n";
+      }
+      else { print "Not the kind of file type you want!\n"; } 
+} 
+close(OUTFILE);
