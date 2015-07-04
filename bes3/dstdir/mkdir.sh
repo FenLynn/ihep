@@ -1,7 +1,7 @@
 #!/bin/bash
 MODIFY=1
 #DSTPATH="/scratchfs/bes/lify/664/mc/etapee/gampipi/pipipi/dst"
-DSTPATH="/scratchfs/bes/lify/664/mc/etapee/gampipi/12gampipiee/dst"
+DSTPATH="/scratchfs/bes/lify/664/mc/etapu/gampipi/sig/09/dst"
 
 CPWD=$(pwd -P)
 OUTFILE=path.txt
