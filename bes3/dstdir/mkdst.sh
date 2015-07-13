@@ -2,11 +2,11 @@
 MODIFY=1
 #DSTPATH="/scratchfs/bes/lify/664/mc/etapee/gampipi/pipipi/dst"
 #DSTPATH="/scratchfs/bes/lify/664p03/mc/etapee/gampipi/gametap/dst"
-DSTPATH="/scratchfs/bes/lify/664p03/root/etapee/gampipi/data/09"
+DSTPATH="/besfs/groups/psip/psipgroup/user/zhangc/data/664p03/PipiInvi/jobfile/psip_exclu_mc/rec/psip_pipijpsi_mumu_3M"
 
 CPWD=$(pwd -P)
-OUTFILE=path.txt
-test -f path.txt && rm -rf path.txt
+OUTFILE=path
+test -f $OUTFILE && rm -rf $OUTFILE
 cd $DSTPATH
 for file in $(ls)
 do
