@@ -1,12 +1,12 @@
 #!/bin/bash
 MODIFY=1
-DSTPATH="/scratchfs/bes/lify/664p03/root/etapee/gampipi/mc/12"
+DSTPATH="/scratchfs/bes/lify/664/root/etapee/gampipi/sig/12"
 
 CPWD=$(pwd -P)
 OUTFILE=list
 test -f $OUTFILE && rm -rf $OUTFILE
 cd $DSTPATH
-for file in $(ls)
+for file in $(ls *.root)
 do
 #	echo $file
 	if [ -f $file ];then
