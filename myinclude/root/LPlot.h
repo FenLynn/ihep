@@ -48,7 +48,7 @@ void ModLine(Type* mchist , Int_t icolor = 2 , Int_t istyle = 1 , Double_t iwidt
 template <class Type>
 void ModFill(Type* mchist,int icolor=4,int istyle=1001){
 	mchist->SetFillColor(icolor);
-	mchist->SetLineColor(0);
+	mchist->SetLineColor(icolor);
 	mchist->SetLineWidth(0);
 	mchist->SetFillStyle(istyle);
 }
