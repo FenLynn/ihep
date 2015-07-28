@@ -20,5 +20,6 @@
 #include "RooAbsReal.h"
 #include "RooNumConvPdf.h"
 #include "RooVoigtian.h"
+#include "RooExponential.h"
 
 #endif
