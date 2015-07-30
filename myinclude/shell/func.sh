@@ -51,6 +51,13 @@ else
 fi
 }
 
+function farmrscp(){
+if [ -d $1 ];then
+	scp -r $1 lify@hepfarm02.phy.pku.edu.cn:~/save
+else
+	echo "Not found target!"
+fi
+}
 
 function compress(){
 if [ -d $1 ];then
