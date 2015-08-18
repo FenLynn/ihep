@@ -8,7 +8,7 @@
 #===============================================================================
 
 #DSTPATH='/bes3fs/offline/data/664p01/psip/mc/09dst/'
-FILE="Jpsi_2012"
+FILE="12"
 
 #sed -i "s%^%${DSTPATH}%g;"  $FILE
 sed -i "s%^%\"%g;"  $FILE
