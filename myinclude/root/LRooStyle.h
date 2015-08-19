@@ -116,7 +116,8 @@ void cdbabarstyle(){
 
 	// use bold lines and markers
 	babarStyle->SetMarkerStyle(21);
-	babarStyle->SetHistLineWidth(1.85);
+	babarStyle->SetHistLineWidth(2);
+//	babarStyle->SetHistLineWidth(1.85);
 	babarStyle->SetLineStyleString(2,"[12 12]"); // postscript dashes
 
 	// get rid of X error bars and y error bar caps
