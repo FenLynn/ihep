@@ -2,7 +2,8 @@
 MODIFY=1
 #DSTPATH="/scratchfs/bes/lify/664/mc/etapee/gampipi/pipipi/dst"
 #DSTPATH="/scratchfs/bes/lify/664p03/mc/etapee/gampipi/gametap/dst"
-DSTPATH="/scratchfs/bes/lify/664p03/mc/etapee/etapipi/gametap/dst"
+DSTPATH="/scratchfs/bes/lify/664/mc/etapee/etapipi/phiKK/dst"
+
 
 CPWD=$(pwd -P)
 OUTFILE=path
