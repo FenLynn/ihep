@@ -2,14 +2,15 @@
 MODIFY=1
 #DSTPATH="/scratchfs/bes/lify/664/mc/etapee/gampipi/pipipi/dst"
 #DSTPATH="/scratchfs/bes/lify/664p03/mc/etapee/gampipi/gametap/dst"
-DSTPATH="/besfs/groups/nphy/mc/jpsi/664/die/bhiwde/dst"
+DSTPATH="/scratchfs/bes/lify/664p03/mc/etapee/etapipi/gametap/dst"
 
+FILE_TYPR=""
 
 CPWD=$(pwd -P)
 OUTFILE=path
 test -f $OUTFILE && rm -rf $OUTFILE
 cd $DSTPATH
-for file in $(ls)
+for file in $(ls ${FILE_TYPE}) 
 do
 #	echo $file
 	if [ -f $file ];then

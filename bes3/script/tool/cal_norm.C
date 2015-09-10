@@ -7,10 +7,10 @@
 
 void cal_norm()
 {
-double 	Ngen=11600000;
-double	Nsur=1194;
-double	NexptX=1964130;
-double	ENexptX=70517;
+double 	Ngen=1.16e6;
+double	Nsur=106;
+double	NexptX=23266.1;
+double	ENexptX=4010.2;
 
 double Nob=(NexptX*Nsur)/Ngen;
 double ENob=(ENexptX*Nsur)/Ngen;
