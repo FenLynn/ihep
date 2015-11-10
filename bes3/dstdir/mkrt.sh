@@ -1,6 +1,6 @@
 #!/bin/bash
-MODIFY=1
-DSTPATH="/scratchfs/bes/lify/664/root/etapee/gampipi/sig/12"
+MODIFY=0
+DSTPATH="/besfs/groups/nphy/root/664/TRKE/mc"
 
 CPWD=$(pwd -P)
 OUTFILE=list
