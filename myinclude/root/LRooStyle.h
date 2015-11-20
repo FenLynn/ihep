@@ -41,7 +41,7 @@ void cdmystyle(){
 	myStyle->SetPadTopMargin(0.04);
 	myStyle->SetPadRightMargin(0.04);
 	myStyle->SetPadBottomMargin(0.11);
-	myStyle->SetPadLeftMargin(0.13);
+	myStyle->SetPadLeftMargin(0.09);
 
 	// use large Times-Roman fonts
 	myStyle->SetTextFont(132);
@@ -56,7 +56,7 @@ void cdmystyle(){
 	myStyle->SetTitleSize(0.06,"xyz");
 	myStyle->SetLabelOffset(0.005);
 	myStyle->SetTitleOffset(0.7,"x");
-	myStyle->SetTitleOffset(0.9,"y");
+	myStyle->SetTitleOffset(0.5,"y");
 	myStyle->SetTitleFont(22);
 	myStyle->SetLabelFont(22);
 
