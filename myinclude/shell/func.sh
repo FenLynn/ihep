@@ -89,8 +89,9 @@ fi
 
 function ckqstat()
 {
-	MYUSER="lify"
-	qstat -u $MYUSER | awk '{print $1}' | grep \.pbssrv\. | wc -l | awk '{print "The total jobs are:	"$1}'
-	qstat -u $MYUSER | awk '{print $10}' | grep R | wc -l | awk '{print "The running jobs are:	"$1}'
-	qstat -u $MYUSER | awk '{print $10}' | grep Q | wc -l | awk '{print "The queueed jobs are:	"$1}'
+	MYUSER=${USER}
+	echo "User:		${USER}"
+	qstat -u $MYUSER | awk '{print $1}' | grep \.pbssrv\. | wc -l | awk '{print "Total jobs:	"$1}'
+	qstat -u $MYUSER | awk '{print $10}' | grep R | wc -l | awk '{print "Running jobs:	"$1}'
+	qstat -u $MYUSER | awk '{print $10}' | grep Q | wc -l | awk '{print "Queueed jobs:	"$1}'
 }
