@@ -34,14 +34,14 @@ void cdmystyle(){
 
 	myStyle->SetNdivisions(510,"x");
 	myStyle->SetNdivisions(510,"y");
-	myStyle->SetTickLength(.03,"xyz");
+	myStyle->SetTickLength(.02,"xyz");
 
 	// set the paper & margin sizes
 	myStyle->SetPaperSize(20,26);
 	myStyle->SetPadTopMargin(0.04);
 	myStyle->SetPadRightMargin(0.04);
 	myStyle->SetPadBottomMargin(0.11);
-	myStyle->SetPadLeftMargin(0.09);
+	myStyle->SetPadLeftMargin(0.11);
 
 	// use large Times-Roman fonts
 	myStyle->SetTextFont(132);
@@ -52,11 +52,11 @@ void cdmystyle(){
 	myStyle->SetMarkerSize(1.0);
 	myStyle->SetLineWidth(2);
 	//		myStyle->SetLineStyleString(2,"[12 12]"); // postscript dashes
-	myStyle->SetLabelSize(0.04,"xyz");
-	myStyle->SetTitleSize(0.06,"xyz");
+	myStyle->SetLabelSize(0.02,"xyz");
+	myStyle->SetTitleSize(0.05,"xyz");
 	myStyle->SetLabelOffset(0.005);
-	myStyle->SetTitleOffset(0.4,"x");
-	myStyle->SetTitleOffset(0.3,"y");
+	myStyle->SetTitleOffset(0.6,"x");
+	myStyle->SetTitleOffset(0.6,"y");
 	myStyle->SetTitleFont(22);
 	myStyle->SetLabelFont(22);
 

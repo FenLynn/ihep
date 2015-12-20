@@ -7,5 +7,8 @@
 #include "/workfs/bes/lify/myinclude/root/LPlot.h"
 #include "/workfs/bes/lify/myinclude/root/LRooStyle.h"
 
+#include "/workfs/bes/lify/myinclude/roofit/RoLExpPol.h"
+
+
 #endif
 
