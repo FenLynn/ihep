@@ -52,7 +52,7 @@ void cdmystyle(){
 	myStyle->SetMarkerSize(1.0);
 	myStyle->SetLineWidth(2);
 	//		myStyle->SetLineStyleString(2,"[12 12]"); // postscript dashes
-	myStyle->SetLabelSize(0.02,"xyz");
+	myStyle->SetLabelSize(0.03,"xyz");
 	myStyle->SetTitleSize(0.05,"xyz");
 	myStyle->SetLabelOffset(0.005);
 	myStyle->SetTitleOffset(0.6,"x");
