@@ -55,8 +55,8 @@ void cdmystyle(){
 	myStyle->SetLabelSize(0.03,"xyz");
 	myStyle->SetTitleSize(0.05,"xyz");
 	myStyle->SetLabelOffset(0.005);
-	myStyle->SetTitleOffset(0.6,"x");
-	myStyle->SetTitleOffset(0.6,"y");
+	myStyle->SetTitleOffset(0.72,"x");
+	myStyle->SetTitleOffset(0.8,"y");
 	myStyle->SetTitleFont(22);
 	myStyle->SetLabelFont(22);
 
