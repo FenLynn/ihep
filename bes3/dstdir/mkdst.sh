@@ -1,7 +1,7 @@
 #!/bin/bash
 MODIFY=1
 #DSTPATH="/scratchfs/bes/lify/664/mc/etapee/gampipi/pipipi/dst"
-DSTPATH="/besfs/groups/nphy/users/lify/mc/664/etapee/etapmumu"
+DSTPATH="/besfs/groups/nphy/users/lify/mc/664/etapee/etapee3_etapipi"
 
 FILE_TYPR=""
 
