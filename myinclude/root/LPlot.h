@@ -129,13 +129,13 @@ void FormatAxis(TAxis * axis){
 //	axis->SetLabelFont(42);
 //	axis->SetTitleFont(22);
 ///	axis->SetTitleOffset(.62);
-	axis->SetLabelSize(0.04);
-	axis->SetTitleSize(0.06);
-	axis->SetLabelOffset(0.005);
+//	axis->SetLabelSize(0.04);
+//	axis->SetTitleSize(0.06);
+//	axis->SetLabelOffset(0.005);
 //	axis->SetNdivisions(505);
-	axis->SetTitleFont(22);
-	axis->SetLabelFont(22);
-	axis->SetTitleColor(1);
+//	axis->SetTitleFont(22);
+//	axis->SetLabelFont(22);
+//	axis->SetTitleColor(1);
 	axis->CenterTitle();
 }
 

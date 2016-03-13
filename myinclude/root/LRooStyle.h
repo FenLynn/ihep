@@ -193,9 +193,91 @@ void cdbesstyle(){
 	besStyle->cd();
 }
 
+void cdpaperstyle(){
+	TStyle *paperStyle= new TStyle("paperStyle","Customed personal Tstyle");
+	paperStyle->SetCanvasBorderMode(0);
+	paperStyle->SetCanvasColor(0);
+	paperStyle->SetFrameBorderMode(0);
+	paperStyle->SetFrameBorderSize(3);
+	paperStyle->SetFrameLineStyle(1);
+	paperStyle->SetFrameLineWidth(2);
+	paperStyle->SetFrameLineColor(0);
+
+	paperStyle->SetPadBorderMode(1);
+	paperStyle->SetPadBorderSize(2);
+	paperStyle->SetPadColor(0);
+	paperStyle->SetPadTickX(1);
+	paperStyle->SetPadTickY(1);
+
+	paperStyle->SetCanvasDefH(600);
+	paperStyle->SetCanvasDefW(800);
+	paperStyle->SetCanvasDefX(0);
+	paperStyle->SetCanvasDefY(0);
+	//	paperStyle->SetFillColor(0);
+
+	paperStyle->SetPalette(1);
+
+	paperStyle->SetStatColor(0);
+	//	paperStyle->SetStatFont(42);
+	//	paperStyle->SetStatFont(22);
+	paperStyle->SetStatBorderSize(1);
+	paperStyle->SetOptStat(0);
+	paperStyle->SetStatFontSize(.03);
+	paperStyle->SetStatX(0.90);
+	paperStyle->SetStatY(0.90);
+
+	paperStyle->SetNdivisions(505,"x");
+	paperStyle->SetNdivisions(505,"y");
+	paperStyle->SetTickLength(.02,"xyz");
+
+	// set the paper & margin sizes
+	paperStyle->SetPaperSize(20,26);
+	paperStyle->SetPadTopMargin(0.04);
+	paperStyle->SetPadRightMargin(0.04);
+	paperStyle->SetPadBottomMargin(0.18);
+	paperStyle->SetPadLeftMargin(0.15);
+
+	// use large Times-Roman fonts
+	paperStyle->SetTextFont(132);
+	paperStyle->SetTextSize(0.08);
+
+	// use bold lines and markers
+	paperStyle->SetMarkerStyle(20);
+	paperStyle->SetMarkerSize(1.0);
+	paperStyle->SetLineWidth(3);
+	//		paperStyle->SetLineStyleString(2,"[12 12]"); // postscript dashes
+	paperStyle->SetLabelSize(0.05,"xyz");
+	paperStyle->SetTitleSize(0.08,"xyz");
+	paperStyle->SetLabelOffset(0.005);
+	paperStyle->SetTitleOffset(.9,"x");
+	paperStyle->SetTitleOffset(0.9,"y");
+	paperStyle->SetTitleFont(62);
+	paperStyle->SetLabelFont(62);
+
+	// get rid of X error bars and y error bar caps
+	paperStyle->SetErrorX(0.5);
+	paperStyle->SetOptFit(0);
+
+	// do not display any of the standard histogram decorations
+	paperStyle->SetHistLineColor(1);
+	paperStyle->SetHistFillStyle(1001);
+	paperStyle->SetHistLineWidth(2);
+	paperStyle->SetFrameLineWidth(2);
+	paperStyle->SetMarkerStyle(20);
+
+
+	paperStyle->SetLegendBorderSize(0);
+	paperStyle->SetLegendFillColor(0);
+	paperStyle->SetLegendFont(42);
+	paperStyle->SetOptTitle(0);
+
+	paperStyle->cd();
+
+}
 void cdStyle(TString style_c){
 	if(style_c=="myStyle") cdmystyle();
 	else if(style_c=="babarStyle") cdbabarstyle();
 	else if(style_c=="besStyle") cdbesstyle();
+	else if(style_c=="paperStyle") cdpaperstyle();
 	else cout<<"No Matched Style!"<<endl;
 }
